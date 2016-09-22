@@ -122,7 +122,7 @@ public class Assign1 {
 				
 					
 			}
-				
+				    
 			tM = dolM / 2;  
 			lM = dolM % 2;
 			qM = cM / 25;
