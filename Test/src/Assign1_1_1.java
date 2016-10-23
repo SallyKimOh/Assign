@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -16,9 +17,9 @@ import java.util.Scanner;
  * @Create_date 2016. 9. 19.
  *
  * @Modify_User
- * @Modify_date 2016. 9. 19.
+ * @Modify_date 2016. 9. 24.
  */
-public class Assign1_1 {
+public class Assign1_1_1 {
 
 	/**
 	 * @param args
@@ -28,10 +29,10 @@ public class Assign1_1 {
 		
 		DecimalFormat form = new DecimalFormat("#.##");
 
+		Scanner info = new Scanner(System.in);
 		
 		try {
 		
-			Scanner info = new Scanner(System.in);
 			int dolM = 0;	//dollars
 			int cM=0;		//cents
 			
@@ -43,68 +44,6 @@ public class Assign1_1 {
 			
 			
 			System.out.println("Change is good");
-//			System.out.print("How many dollars? ");
-	
-//			String sDolM = info.nextLine();
-//
-//			
-//			//=================== Exception start ===================================//
-//			
-//			while (true) {
-//
-//				try {
-//					dolM = Integer.parseInt(sDolM);
-//					if (dolM < 0 ) {
-//						System.out.println("- is not dollars. You have to put in the dollars.");
-//						System.out.print("How many dollars? ");
-//						sDolM = info.nextLine();
-//					} else {
-//						break;
-//					}
-//					
-//				} catch (Exception e1) {
-//					System.out.println("This is not dollars. You have to put in the dollars.");
-//					System.out.print("How many dollars? ");
-//					sDolM = info.nextLine();
-//					
-//				}
-//
-//			}
-//
-//			System.out.print("How many cents? ");
-//
-//			String sTcM = info.nextLine();
-//			
-//			
-//			while (true) {
-//
-//				try {
-//					System.out.println("1");
-//					cM = Integer.parseInt(sTcM);
-//					System.out.println("11");
-//					if (cM < 0 ) {
-//						System.out.println("111");
-//						System.out.println("- is not cents. You have to put in the cents.");
-//						System.out.print("How many cents? ");
-//						sTcM = info.nextLine();
-//					} else {
-//						System.out.println("11111");
-//						break;
-//					}
-//					
-//				} catch (Exception e1) {
-//					System.out.println("111111");
-//					System.out.println("This is not cents. You have to put in the cents.");
-//					System.out.print("How many cents? ");
-//					sTcM = info.nextLine();
-//					
-//				}
-//
-//			}
-			
-			//=================== Exception end ===================================//
-
-			
 			
 			//=================== Exception start ===================================//
 
@@ -121,9 +60,10 @@ public class Assign1_1 {
 						break;
 					}
 					
-				} catch (Exception e1) {
+				} catch (InputMismatchException e1) {
 					System.out.println("This is not real Money.  You have to put in the number for Money.");
 					info.close();
+					return;
 				}
 
 			}
@@ -152,13 +92,11 @@ public class Assign1_1 {
 			nM = cM % 25 % 10 /5;
 
 
-			if (total%100 > 9) {
-				System.out.println("\n$"+ total/100+"."+form.format(total%100) +" requires:"); 
-			} else {
+//			if (total%100 > 9) {
+//				System.out.println("\n$"+ total/100+"."+form.format(total%100) +" requires:"); 
+//			} else {
 				System.out.println("\n$"+ reMoney +" requires:"); 
-			}
-			
-//			System.out.println("\n$"+ dolM + "."+(cM-2) +" requires:"); 
+//			}
 			
 			System.out.println(tM + " Toonies"); 
 			System.out.println(lM + " Loonies"); 
@@ -173,7 +111,7 @@ public class Assign1_1 {
 		
 		} catch (Exception e) {
 			System.out.println("It happens the critical problem.");
-			
+			info.close();
 		
 		}
 	}
