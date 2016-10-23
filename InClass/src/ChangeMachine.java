@@ -17,7 +17,7 @@ public class ChangeMachine {
 	private int loonies;
 	private int quarters;
 	private int dimes;
-	private int nickels; 
+	private int nickels;   
 
 	private double reMoney;
 	

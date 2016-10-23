@@ -16,7 +16,7 @@ public class ChangeTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		int inputDol = 0;
+		int inputDol = 0;  
 		int inputCent = 0;
 		
 		

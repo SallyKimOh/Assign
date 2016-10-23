@@ -51,7 +51,7 @@
 			System.out.println("Hex value is " + hex);			
 			System.out.println("toBinaryString is " + Integer.toBinaryString(17));			
 			System.out.println("toBinaryString is " + Integer.toUnsignedString(17));			
-	
+	  
 		
 		    String bin = "";
 		    String binFragment = "";
