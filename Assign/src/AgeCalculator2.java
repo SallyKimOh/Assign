@@ -13,20 +13,20 @@ import java.util.Scanner;
  * @Modify_date 2016. 10. 20.
  */
 
-public class AgeCalculator {
+public class AgeCalculator2 {
 
-	private OurDate todayDate;	// The "current" date
+	private OurDate2 todayDate;	// The "current" date
 	
-	private OurDate birthDate;	// The person's birthdate
+	private OurDate2 birthDate;	// The person's birthdate
 	
 	private String personName;	// The person's name
 	
 	private String message;		// The message to be displayed
 	
-	public AgeCalculator(){		// Default constructor (call both OurDate default constructors)
+	public AgeCalculator2(){		// Default constructor (call both OurDate default constructors)
 
-		todayDate = new OurDate();
-		birthDate = new OurDate();
+		todayDate = new OurDate2();
+		birthDate = new OurDate2();
 		
 	}
 

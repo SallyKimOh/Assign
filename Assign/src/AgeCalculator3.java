@@ -13,7 +13,7 @@ import java.util.Scanner;
  * @Modify_date 2016. 10. 20.
  */
 
-public class AgeCalculator {
+public class AgeCalculator3 {
 
 	private OurDate todayDate;	// The "current" date
 	
@@ -23,7 +23,7 @@ public class AgeCalculator {
 	
 	private String message;		// The message to be displayed
 	
-	public AgeCalculator(){		// Default constructor (call both OurDate default constructors)
+	public AgeCalculator3(){		// Default constructor (call both OurDate default constructors)
 
 		todayDate = new OurDate();
 		birthDate = new OurDate();
@@ -61,29 +61,49 @@ public class AgeCalculator {
 	public void calculateMessage(){	// Calculate the correct message
 
 		int tYear = 0;
-		int tMonth = 0;
 
-		int ntDay = todayDate.calcDays();
-		int nbDay = birthDate.calcDays();
+		String stTemp = String.valueOf(todayDate.calcDays());
+		int ntDay = Integer.parseInt(stTemp.substring(0,stTemp.length()-2));
+		int ntMonth = Integer.parseInt(stTemp.substring(stTemp.length()-2, stTemp.length()));
+		String sbTemp = String.valueOf(birthDate.calcDays());
+		int nbDay = Integer.parseInt(sbTemp.substring(0,sbTemp.length()-2));
+		int nbMonth = Integer.parseInt(sbTemp.substring(sbTemp.length()-2, sbTemp.length()));
 		
 		int gapDay = ntDay - nbDay;	//Gap of Days
 		
-//		int m_days[]={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+		int m_days[]={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 		
 		message = personName;
 		
 		tYear =  gapDay/365;
-		tMonth = (gapDay%365)/30;
+		
+		int realDays = 0;		//real each months total days
+		
+		int tempMonth = ntMonth;
+		
+		if (ntMonth < nbMonth) {
+			tempMonth = 12 + ntMonth;
+		}
+		
+		int j = 0;
+		for (int i = nbMonth-1; i < tempMonth -1; i++) {
+			realDays+=m_days[i];
+			j++;
+		}
 		
 		if (tYear >=2 ) {		// over and equal 2 years
 			message += " is "+tYear+" years old";
 			
 		} else {
 			
-			if ((tYear >= 0) &&(tMonth > 2)) { // between less 2 years and more 2 months
-				message += " is "+(tYear * 12 + tMonth)+" month(s) old";
+			if ((tYear >= 0) &&(j > 2)) { // between less 2 years and more 2 months
+				if ((gapDay%365) < realDays) {
+					message += " is "+(tYear * 12 +(j-1))+" month(s) old";
+				} else {
+					message += " is "+(tYear * 12 +(j))+" month(s) old";
+				}
 
-			} else if ((tYear == 0) && (tMonth <= 2) && ((gapDay/7) >= 2)) { // between 2 months and 2 weeks
+			} else if ((tYear == 0) && (j <= 2) && ((gapDay/7) >= 2)) { // between 2 months and 2 weeks
 				message += " is "+(gapDay/7)+" week(s) old";
 
 			} else if ((tYear == 0) && ((gapDay/7) < 2) &&(gapDay > 0)) { // under 2 weeks

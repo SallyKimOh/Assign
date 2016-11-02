@@ -13,7 +13,7 @@ import java.util.Scanner;
  * @Modify_date 2016. 10. 20.
  */
 
-public class OurDate {
+public class OurDate2 {
 	
 	private int year;	// The year
 	private int month;	// The month
@@ -21,11 +21,11 @@ public class OurDate {
 	private Scanner input = new Scanner(System.in);	//The scanner to be used for all three inputs
 	
 	
-	public OurDate(){	// Default constructor (Jan. 1, 2000)
+	public OurDate2(){	// Default constructor (Jan. 1, 2000)
 		this(2000,1, 1);
 	}
 	
-	public OurDate(int y,int m, int d) {	//Initial constructor
+	public OurDate2(int y,int m, int d) {	//Initial constructor
 		year = y;
 		month = m;
 		day = d;
@@ -64,7 +64,10 @@ public class OurDate {
 		}
 
 		days = (year* 365 + mTotal + day)-(2000*365+1);
-
+		
+//		String sDays= days + String.format("%02d",month);
+//		
+//		days = Integer.parseInt(sDays);
 		return days;
 	}
 	
