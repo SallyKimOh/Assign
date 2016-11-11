@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import com.sun.scenario.effect.light.Light.Type;
+
 /**
  * @author Sae il Kim
  * @course CST8110
@@ -28,7 +30,7 @@ public class CodeBreaker {
 		System.out.println("You have 6 tries to find the secret 3 letter code");
 		System.out.println("The letters range from A to E");
 		System.out.println("Good luck");
-		System.out.println("The code can have repeat letters");
+		System.out.println("The code can have repeat letters\n");
 
 		
 		letter1 = new CodeLetter();
@@ -67,10 +69,12 @@ public class CodeBreaker {
 		boolean chk = false;
 
 		do {
+			if (num != 6) {
+				System.out.print("Enter guess #"+(num+1)+" :");
+				guess = input.nextLine().toUpperCase();
+			}
 			
-			System.out.print("Enter guess #"+num+" :");
-			guess = input.nextLine().toUpperCase();
-
+			
 			if ((guess.equals("QUIT"))||((num == 6)&&(!done))) {
 				done = true;
 				break;
@@ -121,7 +125,7 @@ public class CodeBreaker {
 		
 		if ((guess.equals("QUIT"))||(done)) {
 			done = true;
-			System.out.println("\nYou lose");
+			System.out.println("You lose");
 		} else {
 			
 			CodeLetter[] cl = {letter1,letter2,letter3};
@@ -140,14 +144,14 @@ public class CodeBreaker {
 				
 			}
 			
-			System.out.println(colPlace+" right letter in the right place ");
-			System.out.println((colChar-colPlace)+" right letter in the wrong place ");
-			
 			if (colPlace== 3) {
 				
-				System.out.println("\nYou win");
+				System.out.println("You win");
 				done = true;
 				
+			} else {
+				System.out.println(colPlace+" right letter in the right place ");
+				System.out.println((colChar-colPlace)+" right letter in the wrong place\n");
 			}
 		}
 		

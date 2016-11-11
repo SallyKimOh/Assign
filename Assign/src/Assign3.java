@@ -17,7 +17,7 @@ public class Assign3 {
 		// TODO Auto-generated method stub
 		
 		CodeBreaker cb = new CodeBreaker();
-		for (int i = 1; i<= 6; i++) {
+		for (int i = 0; i<= 6; i++) {
 			cb.getGuess(i);
 			
 			if (cb.done())	break;
