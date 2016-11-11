@@ -56,7 +56,7 @@ public class CodeBreaker {
 		boolean chk = false;
 		for (int i = 0; i < 5; i++) {
 			if (l == mLetter[i]) {
-				chk = true;
+				chk = true;  
 			}
 		}	
 		

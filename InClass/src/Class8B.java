@@ -39,10 +39,12 @@ public class Class8B {
 				maxNum = temp;
 				minNum = temp;
 			} else {
-				if (maxNum - temp < 1) {
-					minNum = maxNum;
+				if (maxNum < temp) {
 					maxNum = temp;
 				} 
+				if (minNum > temp) {
+					minNum = temp;
+				}
 			}
 			
 		}

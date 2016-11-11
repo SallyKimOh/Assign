@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+  
 /**
  * @author Sae il Kim
  * @course CST8110
