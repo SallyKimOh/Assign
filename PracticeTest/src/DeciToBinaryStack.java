@@ -11,9 +11,7 @@ public class DeciToBinaryStack {
 
 		Scanner input = new Scanner (System.in);
 		
-		
 		int number = 0;
-		int factorOfTwo = 0;
 
 //		get number to convert from user
 		do {
@@ -21,14 +19,11 @@ public class DeciToBinaryStack {
 			number = input.nextInt();
 		}  while (number< 0 || number > 255);
 
-		
 		Stack bi = new Stack();
-		
 		
 		while(number > 1) {
 			
 			bi.push(number%2);
-			
 			number = number/2;
 			
 		}
