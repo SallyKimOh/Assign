@@ -26,13 +26,8 @@ public class CodeLetter {
 	}
 	public boolean isEquals(CodeLetter codeL){	// - BONUS - Do the code values match?
 		
-		boolean flag = false;
+		return isEquals(codeL.letterValue);
 		
-		if (letterValue==codeL.letterValue) {
-			flag = true;
-		} 
-		
-		return flag;
 	}
 	
 	public boolean isEquals(char c){	// - Is the given letter correct?
