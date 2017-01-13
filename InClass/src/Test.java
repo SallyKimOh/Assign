@@ -73,6 +73,18 @@
 		
 		
 		    }
+		    
+		    int i = 10;
+
+		    do
+
+		    {
+
+		    System.out.println( i++ );
+
+		    }
+
+		    while ( i < 10);		    
 		
 		}
 	

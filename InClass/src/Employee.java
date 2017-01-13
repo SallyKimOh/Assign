@@ -16,12 +16,23 @@ public class Employee {
 	private double monthSalary;	//Monthly Salary
 	
 	
+//	public Employee z = 5;
+	
 	public Employee(){		// Default Constractor and Class Member initialized
 		firstName = new String();
 		lastName = new String();
 		monthSalary = 0.0;
 		
+		
 	}
+	
+//	public void test(Employee t) {
+//		z = t.z;
+//		
+//		z = new Employee();
+//	}
+	
+	
 	
 	public Employee(String fName, String lName, double salary) {
 		

@@ -8,7 +8,7 @@ public class CharCount {
 	
 	private int letterCnt = 0;
 	
-	private static List<CharCount> cntList = new ArrayList();
+	private List<CharCount> cntList = new ArrayList<CharCount>();
 
 	public String[] wordArr(String str, String portion) {
 		

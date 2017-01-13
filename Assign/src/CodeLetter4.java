@@ -24,7 +24,7 @@ public class CodeLetter4 {
 		
 		letterValue=(char)(rnd.nextInt((int)topL-64)+'A');
 		
-//		System.out.println("==>"+letterValue);
+		System.out.println("==>"+letterValue);
 		
 	}
 

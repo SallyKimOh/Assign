@@ -18,6 +18,8 @@ public class EmployeeTest {
 		
 		
 		Employee emp = new Employee();
+		
+//		emp.test(t);
 		Scanner info = new Scanner(System.in);
 		
 		System.out.print("What is your FirstName:");
@@ -37,6 +39,7 @@ public class EmployeeTest {
 		
 		
 		  
+		Employee2 ep = new Employee2();
 		
 		
 		

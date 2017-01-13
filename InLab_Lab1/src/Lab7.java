@@ -25,39 +25,47 @@ public class Lab7 {
 
 		String[] word = sentence.split("/") ;
 		
-		HashMap hMap = new HashMap();
+		int total = 0;
+		if (word.length < 1) {
+			
+		} else {
 		
-		if (word[0].length() > 0) {
-			hMap.put(word[0].length(), 1);
-		}
-		
-		
-		for (int i = 1; i < word.length; i++) {
-			for (int j = 0; j < i; j++) {
-				if (word[i].length() == word[j].length()) {
-					int cnt = (int) hMap.get(word[i].length());
-//					System.out.println("cnt==>"+cnt);
-					hMap.put(word[i].length(),++cnt);
-					
-//					System.out.println(word[i].length()+"==>"+hMap.get(word[i].length()));
-					break;
-				} else {
-					if (j == (i-1)){
-						hMap.put(word[i].length(), 1);
+			HashMap hMap = new HashMap();
+			
+			
+			if (word[0].length() > 0) {
+				hMap.put(word[0].length(), 1);
+			}
+			
+			
+			for (int i = 1; i < word.length; i++) {
+				for (int j = 0; j < i; j++) {
+					if (word[i].length() == word[j].length()) {
+						int cnt = (int) hMap.get(word[i].length());
+	//					System.out.println("cnt==>"+cnt);
+						hMap.put(word[i].length(),++cnt);
+							
+	//					System.out.println(word[i].length()+"==>"+hMap.get(word[i].length()));
+						break;
+					} else {
+						if (j == (i-1)){
+							hMap.put(word[i].length(), 1);
+						}
 					}
 				}
 			}
+				
 			
+			
+			Set<Integer> keys1 = hMap.keySet();
+	
+			for(int key:keys1) {
+				if (key !=0) {
+					System.out.println(hMap.get(key)+" "+key +" letter words");
+					total += (int)hMap.get(key);
+				}
+			}
 		}
-		
-		int total = 0;
-		Set<Integer> keys1 = hMap.keySet();
-
-		for(int key:keys1) {
-			System.out.println(hMap.get(key)+" "+key +" letter words");
-			total += (int)hMap.get(key);
-		}
-
 		System.out.println(total+" total words");
 		
 	}

@@ -23,15 +23,20 @@ public class LetterCnt {
 		String[] wordList = cObj.wordArr(str, "/");
 
 		List<CharCount> list = new ArrayList();
-		
-		list = cObj.getCountList(wordList);
 
-		Collections.sort(list, cObj.CntLetterComparator);
-		
 		int total = 0;
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i).getCnt()+" "+list.get(i).getLetterCnt() +" letter words");
-			total+=list.get(i).getCnt();
+		if (list.size() < 1) {
+			
+		} else {
+	
+			list = cObj.getCountList(wordList);
+	
+			Collections.sort(list, cObj.CntLetterComparator);
+			
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println(list.get(i).getCnt()+" "+list.get(i).getLetterCnt() +" letter words");
+				total+=list.get(i).getCnt();
+			}
 		}
 
 		System.out.println(total+" total words");
