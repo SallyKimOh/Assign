@@ -1,4 +1,4 @@
-package Calculator;
+package cst8284.Calculator;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 

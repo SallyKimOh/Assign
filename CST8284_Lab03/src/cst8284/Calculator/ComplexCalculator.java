@@ -1,4 +1,4 @@
-package Calculator;
+package cst8284.Calculator;
 
 public class ComplexCalculator {
 	
@@ -26,7 +26,7 @@ public class ComplexCalculator {
 		   case '/':
 		      //TODO: Call the method for the division of two complex numbers here
 //		      c = divide(c1, c2);
-		      c = multiplication(c1, c2);
+		      c = divide2(c1, c2);
 		      break;
 		   default:
 			  System.out.println("Unknown operation requested");
@@ -48,7 +48,7 @@ public class ComplexCalculator {
 	
 	private Complex multiply(Complex c1, Complex c2){
 		double real = (c1.getReal() * c2.getReal())-(c1.getImag() * c2.getImag());
-		double imag = (c1.getReal()*c2.getImag()) + (c2.getReal()*c1.getReal());
+		double imag = (c1.getReal()*c2.getImag()) + (c2.getReal()*c1.getImag());
 		
 		return(new Complex(real, imag));
 
@@ -65,24 +65,24 @@ public class ComplexCalculator {
 		} else {	
 			real = ((c1.getReal() * c2.getReal())+(c1.getImag() * c2.getImag()))/div;
 			imag = ((c2.getReal() * c1.getImag())-(c1.getReal() * c2.getImag()))/div;
-	//		double real = ((c1.getReal() * c2.getReal())+(c1.getImag() * c2.getImag()))/(c2.getReal()*c2.getReal() + c2.getImag()*c2.getImag());
-	//		double imag = ((c2.getReal() * c1.getImag())-(c1.getReal() * c2.getImag()))/(c2.getReal()*c2.getReal() + c2.getImag()*c2.getImag());
 		}
 		return(new Complex(real, imag));
 	} 
 
 
-	private Complex multiplication(Complex c1, Complex c2){		
-		double div = c2.getReal() * c2.getReal() + conjugate(c2).getImag()*conjugate(c2).getImag();
-		double real,imag;
-		if (div == 0.0) {
-			real = 0;imag = 0;
-		} else {	
-			real = ((c1.getReal() * c2.getReal())-(c1.getImag() * conjugate(c2).getImag()))/div;
-			imag = ((c1.getReal() * conjugate(c2).getImag())-(c1.getImag() * c2.getImag()))/div;
-//			imag = ((c1.getReal() * conjugate(c2).getImag())+(c2.getImag() * c1.getImag()))/div;
-		}	
-		return (new Complex(real, imag));
+	private Complex divide2(Complex c1, Complex c2){		
+
+		Complex c3 = multiply(c1,conjugate(c2));
+
+		double denom = multiply(c2,conjugate(c2)).getReal();
+
+		if (denom == 0.0) {
+			c1.setReal(0);
+			c1.setImag(0);
+			errorMsg = "Divide-by-zero error detected";
+		} 	
+			
+		return (new Complex(c3.getReal()/denom, c3.getImag()/denom));
 	} 
 
 	
