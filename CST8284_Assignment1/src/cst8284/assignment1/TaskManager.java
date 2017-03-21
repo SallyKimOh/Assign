@@ -155,8 +155,17 @@ public class TaskManager extends Application{
         @Override 
         public void handle(ActionEvent e) {
         	currentToDoNumber = seq;
-			Scene scene = getToDoScene(getToDoArray()[seq]);
+        	System.out.println(getToDoArray()[seq].isEmptySet());
+        	
+        	int i = seq;
+        	while (getToDoArray()[i].isEmptySet()) {
+        		i = (seq+1)%4;
+        	}
+        	
+//			Scene scene = getToDoScene(getToDoArray()[seq]);
+			Scene scene = getToDoScene(getToDoArray()[i]);
 			primarystage.setScene(scene);
+
         }
     });		    
 	    
@@ -179,7 +188,7 @@ public class TaskManager extends Application{
 
 	public VBox getLeft(){
 		VBox vBox = new VBox();
-		vBox.setMinWidth(100);
+		vBox.setMinWidth(120);
 
 		return vBox;
 	}
