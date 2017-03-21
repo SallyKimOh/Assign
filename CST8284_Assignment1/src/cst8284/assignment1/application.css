@@ -1,0 +1,40 @@
+
+.root {-fx-background-image: url("file/background3.jpg");}
+
+.label {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0E1D33;
+}
+
+.lb {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0E1D33;
+}
+
+.pane{
+   -fx-background-image: url('file/background.jpg');
+   -fx-background-repeat: stretch;   
+   -fx-background-position: center center;
+}
+
+
+#login-text{
+    -fx-font-size:32px;
+    -fx-font-family: "Arial Black";
+    -fx-fill: #115E7F;
+}
+
+#actiontarget {
+    -fx-fill:WHITE;
+    -fx-font-weight:bold;
+    
+}
+.button {
+    -fx-text-fill:white;
+    -fx-font-family:"Arial Narrow";
+    -fx-font-weight:bold;
+    -fx-background-color:linear-gradient(#61a2b1,#2A5058);
+    
+}
