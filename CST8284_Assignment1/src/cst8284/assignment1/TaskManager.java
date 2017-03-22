@@ -1,14 +1,19 @@
 package cst8284.assignment1;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -88,20 +93,31 @@ public class TaskManager extends Application{
 
 		Scene scene = new Scene(pane,1000,600);
 		
-		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+		scene.setOnMousePressed((e)->{
+			FileUtils futil = new FileUtils();
 			
-			@Override
-			public void handle(MouseEvent event) {
-				
-				FileUtils futil = new FileUtils();
-				
-				setToDoArray(futil.getToDoArray(futil.getAbsPath()));
-				Scene scene2 = getToDoScene(getToDoArray()[getCurrentToDoElement()]);
+			setToDoArray(futil.getToDoArray(futil.getAbsPath()));
+			Scene scene2 = getToDoScene(getToDoArray()[getCurrentToDoElement()]);
 
-				primarystage.setScene(scene2);
-			}
+			primarystage.setScene(scene2);
+			
 		});
-
+		
+//		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+//			
+//			@Override
+//			public void handle(MouseEvent event) {
+//				
+//				FileUtils futil = new FileUtils();
+//				
+////				setToDoArray(futil.getToDoArray(futil.getAbsPath()));
+//				setToDoArray(futil.getToDoArray(""));
+//				Scene scene2 = getToDoScene(getToDoArray()[getCurrentToDoElement()]);
+//
+//				primarystage.setScene(scene2);
+//			}
+//		});
+//
         scene.getStylesheets().
         add(getClass().getResource("application.css").toExternalForm());
 		
@@ -154,53 +170,6 @@ public class TaskManager extends Application{
 		ButtonClickHandler hdlrBtnClick = new ButtonClickHandler(seq);
 		btn.setOnAction(hdlrBtnClick);
 	
-//	    btn.setOnAction(new EventHandler<ActionEvent>() {
-//        @Override 
-//        public void handle(ActionEvent e) {
-//        	
-//        	System.out.println("==>"+getCurrentToDoElement());
-// //       	currentToDoNumber = seq;
-//        	System.out.println(getToDoArray()[seq].isEmptySet());
-//        	
-//        	if (seq == 0) {
-//        		setToDoElement(seq);
-//        	}
-//        	
-//        	if (seq == 1) {
-//        		if (getCurrentToDoElement() > 0)
-//            		setToDoElement(getCurrentToDoElement()-1);
-//        	}
-//
-//        	if (seq == 2) {
-//        		if (getCurrentToDoElement() < getToDoArray().length -1)
-//        			setToDoElement(getCurrentToDoElement()+1);
-//        	}
-//        	
-//        	if (seq == 3) {
-//        		setToDoElement(getToDoArray().length -1);
-//        	}
-//        	
-//        	int i = getToDoArray().length -1;
-//
-//        	if (getToDoArray()[getCurrentToDoElement()].isEmptySet()) {
-//        		while (getToDoArray()[i].isEmptySet()){
-//        			i--;        			
-//        		}
-//        		
-//        		setToDoElement(i);
-//        	}
-//        	
-//        	
-//        	System.out.println("currentToDoNumber==>"+getCurrentToDoElement());
-//        	
-//			Scene scene = getToDoScene(getToDoArray()[getCurrentToDoElement()]);
-//			primarystage.setScene(scene);
-//
-//        }
-//    });		    
-//	    
-	    
-	    
 	    return btn;
 		
 	}
@@ -262,9 +231,6 @@ public class TaskManager extends Application{
 	}
 	
 	public VBox getCalandar(){
-//		TextField txtField2 = new TextField();
-//		txtField2.setMaxWidth(700);
-		
 	    VBox vbox = new VBox(20);
 	    DatePicker datePicker = new DatePicker();
 	    datePicker.setValue(LocalDate.now());
@@ -343,24 +309,29 @@ public class TaskManager extends Application{
 		Application.launch(args);
 	}
 
+    @Override
+    public void stop()
+    {
+    	System.out.println("Bye-Bye");
+    	Alert alert = new Alert(AlertType.INFORMATION);
+    	alert.setTitle("Bye-Bye");
+    	alert.setHeaderText(null);
+    	alert.setContentText("Bye-Bye!! Have a nice day!");
 
+    	alert.showAndWait();
+    	Platform.exit();
+    }
+	
 	class ButtonClickHandler implements EventHandler<ActionEvent> {
 		private int seq;
 		public ButtonClickHandler(int i) {
 			seq = i;
-			// TODO Auto-generated constructor stub
-			System.out.println("sss===>"+i);
-//			currentToDoNumber = i;
 		}
 		
 		@Override
 		public void handle(ActionEvent e) {
-			System.out.println("aaaaaaaa==>"+seq);
-        	System.out.println("==>"+getCurrentToDoElement());
- //       	currentToDoNumber = seq;
-        	System.out.println(getToDoArray()[seq].isEmptySet());
-        	
-        	switch(seq) {
+
+			switch(seq) {
         	case 0:
         		setToDoElement(seq);
         		break;
@@ -386,9 +357,6 @@ public class TaskManager extends Application{
         		
         		setToDoElement(i);
         	}
-        	
-        	
-        	System.out.println("currentToDoNumber==>"+getCurrentToDoElement());
         	
 			Scene scene = getToDoScene(getToDoArray()[getCurrentToDoElement()]);
 			primarystage.setScene(scene);

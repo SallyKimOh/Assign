@@ -2,8 +2,11 @@ package cst8284.assignment1;
 	
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -179,45 +182,8 @@ public class Main extends Application {
 
 			int data = 0;
 			
-			File f = new File("ToDoList.todo");
+			File f = new File("ToDoList2.todo");
 			
-			FileInputStream fis;
-			
-			try {
-				fis = new FileInputStream(f);
-				byte b[] = new byte[(int)f.length()];
-				int x = fis.read(b);
-				
-				for (int i = 0; i < x; i++){
-//					System.out.print((char)b[i]);
-//					System.out.print(fis);
-				}
-					
-			} catch (IOException e) {
-					// TODO Auto-generated catch block
-				e.printStackTrace();
-
-			}			
-			
-//			try {
-//				fis = new FileInputStream(f);
-//				try {
-//					while ((data = fis.read()) != -1) {
-//						System.out.println("====>"+data);
-//					}
-//					
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//
-//			} catch (FileNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-			
-
-//			EmployeeInfo empInfo;
 			ToDo td;
 			
 			try {
@@ -242,6 +208,26 @@ public class Main extends Application {
 			} catch (ClassNotFoundException ex) {
 				System.out.print("File not found");
 			}
+			
+
+			try {
+				FileOutputStream fout = new FileOutputStream(f);
+				ObjectOutputStream oos = new ObjectOutputStream(fout);
+				td = new ToDo();
+//				td.setTitle("");
+//				td.setDueDate(null);
+//				td.setPriority(0);
+				
+					oos.writeObject(td);
+				
+			}
+			catch (FileNotFoundException ex) {
+				System.out.println("File not found: check the path for file " + f);
+				
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+
 			
 			
 		
