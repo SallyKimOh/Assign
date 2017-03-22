@@ -36,7 +36,7 @@ import javafx.stage.Stage;
 public class TaskManager extends Application{
 	
 	private ToDo[] toDoArray;
-	private static int currentToDoNumber;
+	private static int currentToDoElement;
 	private Stage primarystage;
 
 	public ToDo[] getToDoArray() {
@@ -47,12 +47,12 @@ public class TaskManager extends Application{
 		this.toDoArray = toDoArray;
 	}
 
-	public static int getCurrentToDoNumber() {
-		return currentToDoNumber;
+	public static int getCurrentToDoElement() {
+		return currentToDoElement;
 	}
 
-	public static void setToDoNumber(int currentToDoNumber) {
-		TaskManager.currentToDoNumber = currentToDoNumber;
+	public static void setToDoElement(int currentToDoElement) {
+		TaskManager.currentToDoElement = currentToDoElement;
 	}
 
 	public Stage getPrimaryStage() {
@@ -96,7 +96,7 @@ public class TaskManager extends Application{
 				FileUtils futil = new FileUtils();
 				
 				setToDoArray(futil.getToDoArray(futil.getAbsPath()));
-				Scene scene2 = getToDoScene(getToDoArray()[currentToDoNumber]);
+				Scene scene2 = getToDoScene(getToDoArray()[getCurrentToDoElement()]);
 
 				primarystage.setScene(scene2);
 			}
@@ -146,29 +146,59 @@ public class TaskManager extends Application{
 	    
 
 	    Button btn=new Button("",iv);
-	    
-	    
-//		ButtonClickHandler hdlrBtnClick = new ButtonClickHandler(seq);
-//		btn.setOnAction(hdlrBtnClick);
-	
-	    btn.setOnAction(new EventHandler<ActionEvent>() {
-        @Override 
-        public void handle(ActionEvent e) {
-        	currentToDoNumber = seq;
-        	System.out.println(getToDoArray()[seq].isEmptySet());
-        	
-        	int i = seq;
-        	while (getToDoArray()[i].isEmptySet()) {
-        		i = (seq+1)%4;
-        	}
-        	
-//			Scene scene = getToDoScene(getToDoArray()[seq]);
-			Scene scene = getToDoScene(getToDoArray()[i]);
-			primarystage.setScene(scene);
 
-        }
-    });		    
-	    
+   	    if (((getCurrentToDoElement() < 1) && ((seq == 0) || (seq == 1))) ||((getCurrentToDoElement() == getToDoArray().length -1) && ((seq == 2) || (seq == 3)))) {
+	    	btn.setDisable(true);
+	    }
+		
+		ButtonClickHandler hdlrBtnClick = new ButtonClickHandler(seq);
+		btn.setOnAction(hdlrBtnClick);
+	
+//	    btn.setOnAction(new EventHandler<ActionEvent>() {
+//        @Override 
+//        public void handle(ActionEvent e) {
+//        	
+//        	System.out.println("==>"+getCurrentToDoElement());
+// //       	currentToDoNumber = seq;
+//        	System.out.println(getToDoArray()[seq].isEmptySet());
+//        	
+//        	if (seq == 0) {
+//        		setToDoElement(seq);
+//        	}
+//        	
+//        	if (seq == 1) {
+//        		if (getCurrentToDoElement() > 0)
+//            		setToDoElement(getCurrentToDoElement()-1);
+//        	}
+//
+//        	if (seq == 2) {
+//        		if (getCurrentToDoElement() < getToDoArray().length -1)
+//        			setToDoElement(getCurrentToDoElement()+1);
+//        	}
+//        	
+//        	if (seq == 3) {
+//        		setToDoElement(getToDoArray().length -1);
+//        	}
+//        	
+//        	int i = getToDoArray().length -1;
+//
+//        	if (getToDoArray()[getCurrentToDoElement()].isEmptySet()) {
+//        		while (getToDoArray()[i].isEmptySet()){
+//        			i--;        			
+//        		}
+//        		
+//        		setToDoElement(i);
+//        	}
+//        	
+//        	
+//        	System.out.println("currentToDoNumber==>"+getCurrentToDoElement());
+//        	
+//			Scene scene = getToDoScene(getToDoArray()[getCurrentToDoElement()]);
+//			primarystage.setScene(scene);
+//
+//        }
+//    });		    
+//	    
 	    
 	    
 	    return btn;
@@ -315,20 +345,54 @@ public class TaskManager extends Application{
 
 
 	class ButtonClickHandler implements EventHandler<ActionEvent> {
-		
+		private int seq;
 		public ButtonClickHandler(int i) {
+			seq = i;
 			// TODO Auto-generated constructor stub
 			System.out.println("sss===>"+i);
-			currentToDoNumber = i;
+//			currentToDoNumber = i;
 		}
 		
 		@Override
 		public void handle(ActionEvent e) {
-			System.out.println("aaaaaaaa==>"+currentToDoNumber);
-			System.out.println("aaaaaaaa==>"+getCurrentToDoNumber());
-//			Scene scene = getToDoScene(getToDoArray()[seq]);
-//			primarystage.setScene(scene);
-						
+			System.out.println("aaaaaaaa==>"+seq);
+        	System.out.println("==>"+getCurrentToDoElement());
+ //       	currentToDoNumber = seq;
+        	System.out.println(getToDoArray()[seq].isEmptySet());
+        	
+        	switch(seq) {
+        	case 0:
+        		setToDoElement(seq);
+        		break;
+        	case 1:
+        		if (getCurrentToDoElement() > 0)
+            		setToDoElement(getCurrentToDoElement()-1);
+        		break;
+        	case 2:
+        		if (getCurrentToDoElement() < getToDoArray().length -1)
+        			setToDoElement(getCurrentToDoElement()+1);
+        		break;
+        	case 3:
+        		setToDoElement(getToDoArray().length -1);
+        		break;
+        	}
+        	
+        	int i = getToDoArray().length -1;
+
+        	if (getToDoArray()[getCurrentToDoElement()].isEmptySet()) {
+        		while (getToDoArray()[i].isEmptySet()){
+        			i--;        			
+        		}
+        		
+        		setToDoElement(i);
+        	}
+        	
+        	
+        	System.out.println("currentToDoNumber==>"+getCurrentToDoElement());
+        	
+			Scene scene = getToDoScene(getToDoArray()[getCurrentToDoElement()]);
+			primarystage.setScene(scene);
+
 		}
 	}
 

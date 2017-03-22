@@ -19,11 +19,13 @@ public class FileUtils {
 		ToDo toDos[] = new ToDo[NUMBER_OF_TODOS];
 
 		File f = new File(fileName);
+		setAbsPath(f);
 		if(fileExists(f)){
 			f = new File(getAbsPath(f));
 		} else {
 			f = new File(getAbsPath());
 		}
+
 		
 		try {
 			FileInputStream fin = new FileInputStream(f);
@@ -32,8 +34,8 @@ public class FileUtils {
 			for (int i = 0; i <NUMBER_OF_TODOS; i ++) {
 				toDos[i] = (ToDo)(ojs.readObject());
 				
-				System.out.println(i+"==>"+toDos[i].getTitle());
-				System.out.println(i+"==>"+toDos[i].getDueDate());
+//				System.out.println(i+"==>"+toDos[i].getTitle());
+//				System.out.println(i+"==>"+toDos[i].getDueDate());
 			}
 			
 		} catch (IOException ex) {
