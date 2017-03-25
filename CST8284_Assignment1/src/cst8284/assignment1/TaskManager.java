@@ -1,29 +1,22 @@
 package cst8284.assignment1;
 
-import java.time.LocalDate;
-import java.util.Optional;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -36,7 +29,16 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-// Your import libraries go here
+
+/**
+ * @author Sae il Kim
+ * @course CST8284
+ * @section 300
+ * @Lab_professor Dave Houtman
+ * 
+ * @Create_User
+ * @Create_date 2017. 3. 22.
+ */
 
 public class TaskManager extends Application{
 	
@@ -84,8 +86,11 @@ public class TaskManager extends Application{
         ds.setOffsetX(3.0);
         ds.setOffsetY(3.0);
         txt.setEffect(ds);
-		//============== css==========================//
-       
+
+        //============== css==========================//
+
+        
+        
         
 		StackPane pane = new StackPane();
 		pane.getChildren().add(txt);
@@ -97,30 +102,12 @@ public class TaskManager extends Application{
 			FileUtils futil = new FileUtils();
 			
 			setToDoArray(futil.getToDoArray(futil.getAbsPath()));
-			Scene scene2 = getToDoScene(getToDoArray()[getCurrentToDoElement()]);
-
-			primarystage.setScene(scene2);
+			primarystage.setScene(getToDoScene(getToDoArray()[getCurrentToDoElement()]));
 			
 		});
 		
-//		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-//			
-//			@Override
-//			public void handle(MouseEvent event) {
-//				
-//				FileUtils futil = new FileUtils();
-//				
-////				setToDoArray(futil.getToDoArray(futil.getAbsPath()));
-//				setToDoArray(futil.getToDoArray(""));
-//				Scene scene2 = getToDoScene(getToDoArray()[getCurrentToDoElement()]);
-//
-//				primarystage.setScene(scene2);
-//			}
-//		});
-//
         scene.getStylesheets().
         add(getClass().getResource("application.css").toExternalForm());
-		
 		
 		return scene;
 	}
@@ -128,7 +115,6 @@ public class TaskManager extends Application{
 	public Scene getToDoScene(ToDo td) {
 		
 		Pane pane = new Pane();
-		
 		pane = getToDoPane(td);
 
 		String image = getClass().getResource("file/background3.jpg").toExternalForm();
@@ -136,12 +122,8 @@ public class TaskManager extends Application{
 		           "-fx-background-position: center center; " +
 		           "-fx-background-repeat: stretch;");		
 		
-//        pane.getStylesheets().
-//        add(getClass().getResource("application.css").toExternalForm());
 
         Scene scene = new Scene(pane,1000,600);
-
-		
 		return scene;
 	}
 
@@ -152,39 +134,46 @@ public class TaskManager extends Application{
 		return hBox;
 	}
 
-	public Button getImgButton(String fileName,int seq){
 
-	    Image img=new Image(getClass().getResourceAsStream(fileName));
-	    
-	    ImageView iv=new ImageView(img);
-	    iv.setFitHeight(30);
-	    iv.setFitWidth(30);
-	    
-
-	    Button btn=new Button("",iv);
-
-   	    if (((getCurrentToDoElement() < 1) && ((seq == 0) || (seq == 1))) ||((getCurrentToDoElement() == getToDoArray().length -1) && ((seq == 2) || (seq == 3)))) {
-	    	btn.setDisable(true);
-	    }
-		
-		ButtonClickHandler hdlrBtnClick = new ButtonClickHandler(seq);
-		btn.setOnAction(hdlrBtnClick);
-	
-	    return btn;
-		
-	}
-	
-	
 	public HBox getBottom(){
-		HBox hBox = new HBox();
+		HBox hBox = new HBox(35);
+		Button btn1 = new Button("\u23EE");
+		Button btn2 = new Button("\u23EA");
+		Button btn3 = new Button("\u23E9");
+		Button btn4 = new Button("\u23ED");
+		
+	
+		//======== buttons check for disable =========//
+   	    if (getCurrentToDoElement() == 0) {
+   	    	btn1.setDisable(true);
+   	    	btn2.setDisable(true);
+   	    } else if (getCurrentToDoElement() == getToDoArray().length -1) {
+   	    	btn3.setDisable(true);
+   	    	btn4.setDisable(true);
+   	    }
+   	    
+   	   	int i = getToDoArray().length -1;
+   		while (getToDoArray()[i].isEmptySet()){
+   			i--;        			
+   		}
 
-		hBox.getChildren().addAll(getImgButton("file/4.jpg",0), getImgButton("file/2.jpg",1),getImgButton("file/1.jpg",2),getImgButton("file/3.jpg",3));
+   		if (getCurrentToDoElement() > i) btn4.setDisable(true);
+   		//==================================================//
+   	    
+		btn1.setOnAction(e->newScene(0));
+		if(getCurrentToDoElement() > 0)	//remove out of range of array
+			btn2.setOnAction(e-> newScene(currentToDoElement-1));
+		if (getCurrentToDoElement() < getToDoArray().length -1)
+			btn3.setOnAction(e-> newScene(currentToDoElement+1));
+		btn4.setOnAction(e-> newScene(getToDoArray().length-1));
+
+		hBox.getChildren().addAll(btn1,btn2,btn3,btn4);
 		hBox.setAlignment(Pos.TOP_CENTER);
 		hBox.setMinHeight(100);
 
 		return hBox;
 	}
-
+	
 	public VBox getLeft(){
 		VBox vBox = new VBox();
 		vBox.setMinWidth(120);
@@ -206,7 +195,6 @@ public class TaskManager extends Application{
 		ToggleGroup group = new ToggleGroup();
 	    RadioButton fbtn = new RadioButton("1           ");
 	    fbtn.setToggleGroup(group);
-//	    fbtn.setSelected(true);
 	    RadioButton sbtn = new RadioButton("2           ");
 	    sbtn.setToggleGroup(group);
 	    RadioButton tbtn = new RadioButton("3           ");
@@ -224,21 +212,10 @@ public class TaskManager extends Application{
 	    	break;
 	    }
 	    
-	    rB.getChildren().add(fbtn);
-	    rB.getChildren().add(sbtn);
-	    rB.getChildren().add(tbtn);
+	    rB.getChildren().addAll(fbtn,sbtn,tbtn);
 	    return rB;
 	}
 	
-	public VBox getCalandar(){
-	    VBox vbox = new VBox(20);
-	    DatePicker datePicker = new DatePicker();
-	    datePicker.setValue(LocalDate.now());
-	    vbox.getChildren().add(datePicker);
-	    
-	    return vbox;
-	}
-
 	public Label getLabel(String title) {
 	 	Label lb = new Label(title);
 	 	
@@ -262,10 +239,12 @@ public class TaskManager extends Application{
 		gpane.add(getLabel("Due Date"), 0, 2);
 		gpane.add(getLabel("Priority"), 0, 3);
 		
+		Format format = new SimpleDateFormat("E MMM dd");
+		
 		gpane.add(new TextField(td.getTitle()), 1, 0);
 		gpane.add(new TextArea(td.getSubject()), 1, 1);
-//		gpane.add(getCalandar(), 1, 2);
-		gpane.add(new TextField(td.getDueDate().toString()), 1, 2);
+//		gpane.add(new TextField(td.getDueDate().toString()), 1, 2);
+		gpane.add(new TextField(format.format(td.getDueDate())), 1, 2);
 		gpane.add(getRadio(td.getPriority()), 1, 3);
 		gpane.setAlignment(Pos.CENTER);
 		
@@ -285,10 +264,30 @@ public class TaskManager extends Application{
 		rootNode.setCenter(getCenter(td));
 		rootNode.setBottom(getBottom());
 		rootNode.setVisible(true);
+
 		
 		return rootNode;
 	}
 	
+	/**
+	 * if data is not exist, skip that and go next exist data
+	 * @param curr 
+	 */
+	private void newScene(int curr) {
+		setToDoElement(curr);
+    	int i = getToDoArray().length -1;
+
+    	if (getToDoArray()[getCurrentToDoElement()].isEmptySet()) {
+    		while (getToDoArray()[i].isEmptySet()){
+    			i--;        			
+    		}
+    		
+    		primarystage.setScene(getToDoScene(getToDoArray()[i]));
+    	} else {
+    		primarystage.setScene(getToDoScene(getToDoArray()[getCurrentToDoElement()]));
+    	}
+
+	}
 	
 	
 	@Override
@@ -321,48 +320,5 @@ public class TaskManager extends Application{
     	alert.showAndWait();
     	Platform.exit();
     }
-	
-	class ButtonClickHandler implements EventHandler<ActionEvent> {
-		private int seq;
-		public ButtonClickHandler(int i) {
-			seq = i;
-		}
-		
-		@Override
-		public void handle(ActionEvent e) {
-
-			switch(seq) {
-        	case 0:
-        		setToDoElement(seq);
-        		break;
-        	case 1:
-        		if (getCurrentToDoElement() > 0)
-            		setToDoElement(getCurrentToDoElement()-1);
-        		break;
-        	case 2:
-        		if (getCurrentToDoElement() < getToDoArray().length -1)
-        			setToDoElement(getCurrentToDoElement()+1);
-        		break;
-        	case 3:
-        		setToDoElement(getToDoArray().length -1);
-        		break;
-        	}
-        	
-        	int i = getToDoArray().length -1;
-
-        	if (getToDoArray()[getCurrentToDoElement()].isEmptySet()) {
-        		while (getToDoArray()[i].isEmptySet()){
-        			i--;        			
-        		}
-        		
-        		setToDoElement(i);
-        	}
-        	
-			Scene scene = getToDoScene(getToDoArray()[getCurrentToDoElement()]);
-			primarystage.setScene(scene);
-
-		}
-	}
-
 	
 }
