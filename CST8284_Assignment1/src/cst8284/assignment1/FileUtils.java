@@ -12,6 +12,7 @@ public class FileUtils {
 
 	private final static int NUMBER_OF_TODOS = 4;
 	private static String relPath = "ToDoList.todo";
+//	private static String relPath = "testOnlyMiddles.todo";
 	
 	public ToDo[] getToDoArray(String fileName) {
 	    // TODO: insert required code here, as described in the

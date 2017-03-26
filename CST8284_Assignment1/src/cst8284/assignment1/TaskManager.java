@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -98,11 +100,13 @@ public class TaskManager extends Application{
 
 		Scene scene = new Scene(pane,1000,600);
 		
-		scene.setOnMousePressed((e)->{
+		scene.setOnMouseClicked((e)->{
 			FileUtils futil = new FileUtils();
 			
 			setToDoArray(futil.getToDoArray(futil.getAbsPath()));
-			primarystage.setScene(getToDoScene(getToDoArray()[getCurrentToDoElement()]));
+//			setToDoArray(futil.getToDoArray("src/cst8284/assignment1/file/ToDoList.todo"));
+			newScene1(getCurrentToDoElement());
+//			primarystage.setScene(getToDoScene(getToDoArray()[getCurrentToDoElement()]));
 			
 		});
 		
@@ -141,30 +145,36 @@ public class TaskManager extends Application{
 		Button btn2 = new Button("\u23EA");
 		Button btn3 = new Button("\u23E9");
 		Button btn4 = new Button("\u23ED");
+
 		
-	
-		//======== buttons check for disable =========//
-   	    if (getCurrentToDoElement() == 0) {
+   	   	int i = getToDoArray().length -1;
+   		while ((getToDoArray()[i].isEmptySet())&&(i>=0)){
+   			i--;        			
+   		}
+
+   		int j = 0;
+   		while ((getToDoArray()[j].isEmptySet())&&(j <= i)){
+   			j++;        			
+   		}
+   		
+   	    if ((getCurrentToDoElement() == 0) ||(getCurrentToDoElement() <= j ) ) {
    	    	btn1.setDisable(true);
    	    	btn2.setDisable(true);
-   	    } else if (getCurrentToDoElement() == getToDoArray().length -1) {
+  	    	
+   	    } 
+   	    if ((getCurrentToDoElement() == getToDoArray().length -1) ||(getCurrentToDoElement() >= i )){
    	    	btn3.setDisable(true);
    	    	btn4.setDisable(true);
    	    }
    	    
-   	   	int i = getToDoArray().length -1;
-   		while (getToDoArray()[i].isEmptySet()){
-   			i--;        			
-   		}
-
-   		if (getCurrentToDoElement() > i) btn4.setDisable(true);
+   		
    		//==================================================//
    	    
-		btn1.setOnAction(e->newScene(0));
+		btn1.setOnAction(e->newScene1(0));
 		if(getCurrentToDoElement() > 0)	//remove out of range of array
-			btn2.setOnAction(e-> newScene(currentToDoElement-1));
+			btn2.setOnAction(e-> newScene1(getCurrentToDoElement()-1));
 		if (getCurrentToDoElement() < getToDoArray().length -1)
-			btn3.setOnAction(e-> newScene(currentToDoElement+1));
+			btn3.setOnAction(e-> newScene(getCurrentToDoElement()+1));
 		btn4.setOnAction(e-> newScene(getToDoArray().length-1));
 
 		hBox.getChildren().addAll(btn1,btn2,btn3,btn4);
@@ -282,11 +292,31 @@ public class TaskManager extends Application{
     			i--;        			
     		}
     		
-    		primarystage.setScene(getToDoScene(getToDoArray()[i]));
-    	} else {
-    		primarystage.setScene(getToDoScene(getToDoArray()[getCurrentToDoElement()]));
+    		setToDoElement(i);
     	}
+		primarystage.setScene(getToDoScene(getToDoArray()[getCurrentToDoElement()]));
+    	
+    	
+	}
 
+	private void newScene1(int curr) {
+		setToDoElement(curr);
+    	int i = getCurrentToDoElement() == 0 ? 0 : getCurrentToDoElement()-1;
+
+    	if (getToDoArray()[getCurrentToDoElement()].isEmptySet()) {
+    		while (getToDoArray()[i].isEmptySet()){
+    			if (getCurrentToDoElement() == 0) {
+    				i++;
+    			} else {
+    				i--;
+    			}
+    		}
+    		
+    		setToDoElement(i);
+    	}
+		primarystage.setScene(getToDoScene(getToDoArray()[getCurrentToDoElement()]));
+    	
+    	
 	}
 	
 	
