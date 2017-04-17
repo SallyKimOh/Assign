@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Optional;
 
 import javafx.animation.FadeTransition;
@@ -37,8 +36,6 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -63,9 +60,10 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
-public class TaskManager extends Application {
+public class TaskManager_no_change_array extends Application {
 
 	private ArrayList<ToDo> toDoArray;
 	private static int currentToDoElement;
@@ -84,8 +82,6 @@ public class TaskManager extends Application {
 	private ArrayList<ToDo> toDoSortArray = new ArrayList<ToDo>();
     private TableView<ToDo> table = new TableView<ToDo>();
     private ObservableList<ToDo> data;    
-//    private boolean saveYN = true;
-    
 
 
 
@@ -322,7 +318,6 @@ public class TaskManager extends Application {
 		System.out.println("Name:"+fc.getInitialFileName());
 		
 		isToDoArrayListDirty();
-//		saveYN=true;
 		saveCenterPaneContents2ToDo(null);		
 		
 	}
@@ -405,7 +400,14 @@ public class TaskManager extends Application {
 		System.out.println("tdTemp.getDueDate==>"+tdTemp.getDueDate());
 		System.out.println("tdTemp.getPriority==>"+tdTemp.getPriority());
 		
-//		if (saveYN) {
+//		if ((tdTemp.getTitle()=="") ||(tdTemp.getSubject()=="")||(tdTemp.getDueDate()==null)||(tdTemp.getPriority()==0)){
+//			
+//			Alert alert = new Alert(AlertType.INFORMATION);
+//   			alert.setContentText("Can you input the data please!");
+//    		alert.showAndWait();
+//			getPrimaryStage().setScene(getToDoScene(getToDoArray().get(getToDoElement())));
+//		} else {		
+//
 			flag = equalValidation(tdTemp);
 //		}
 		
@@ -500,21 +502,14 @@ public class TaskManager extends Application {
 
 	public BorderPane getToDoPane(ToDo td) {
 
-
 		BorderPane rootNode = new BorderPane();
 
 		VBox vbLeft = new VBox();
 		vbLeft.setMinWidth(120);
 		
-        ScrollPane sp1 = new ScrollPane();
-        
 		BorderPane bp = new BorderPane();
 		bp.setTop(list);
 		bp.setCenter(getLeftPane(rootNode));
-		
-		sp1.setPrefSize(300, 500);
-		sp1.setContent(bp);
-		sp1.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		
 		BorderPane bp2 = new BorderPane();
 		bp2.setTop(getRightPane());
@@ -527,7 +522,7 @@ public class TaskManager extends Application {
 		rootNode.setTop(getMenuBar());
 //		rootNode.setLeft(list);		//for listview
 //		rootNode.setLeft(getLeftPane());	//tableview
-		rootNode.setLeft(sp1);		//total
+		rootNode.setLeft(bp);		//total
 //		rootNode.setRight(getRightPane());	//listview
 //		rootNode.setRight(getRightTablePane());	//table view
 		rootNode.setRight(bp2);
@@ -535,7 +530,6 @@ public class TaskManager extends Application {
 		rootNode.setCenter(getCenterPane(td));
 		
 		rootNode.setOnMouseClicked(e-> {
-//			saveYN=true;
 			saveCenterPaneContents2ToDo(null);
 			
 		});
@@ -592,9 +586,6 @@ public class TaskManager extends Application {
 	}
 	
 	public GridPane getCenterPane(ToDo td) {
-
-		
-    	System.out.println("afterelement:"+getToDoElement());
 
 		GridPane gp = new GridPane();
 		gp.setPadding(new Insets(50));
@@ -678,7 +669,7 @@ public class TaskManager extends Application {
 		Button btnLast = new Button("\u23ed"); // btnLast.setMinSize(80, 80);
 
 		btnFirst.setOnAction(e -> {
-//			saveYN=true;
+			
 			isToDoArrayListDirty();
 			saveCenterPaneContents2ToDo(null);		
 			
@@ -687,7 +678,6 @@ public class TaskManager extends Application {
 		});
 			
 		btnBack.setOnAction(e -> {
-//			saveYN=true;
 			int toDoElement = getToDoElement();
 			System.out.println("=="+toDoElement);
 //			if (getTempTitle()!=null)
@@ -709,7 +699,6 @@ public class TaskManager extends Application {
 		
 
 		btnNext.setOnAction(e -> {
-//			saveYN=true;
 
 			isToDoArrayListDirty();
 			saveCenterPaneContents2ToDo(null);		
@@ -725,7 +714,6 @@ public class TaskManager extends Application {
 		
 		
 		btnLast.setOnAction(e -> {
-//			saveYN=true;
 			
 			isToDoArrayListDirty();
 			saveCenterPaneContents2ToDo(null);		
@@ -854,7 +842,11 @@ public class TaskManager extends Application {
 
 	public ArrayList<String> getListTitle(){
 		ArrayList<String> arrTitle = new ArrayList<String>();
+//		for (ToDo s:getToDoSortArray()){
+//			arrTitle.add(s.getTitle());
+//		}
 		getToDoSortArray().forEach(item->arrTitle.add(item.getTitle()));
+		
 		System.out.println("cnt:"+getToDoSortArray().size());
 		
 		return arrTitle;
@@ -863,8 +855,6 @@ public class TaskManager extends Application {
 	public ArrayList<ToDo> getTableListView(){
 		ArrayList<ToDo> arrTitle = new ArrayList<ToDo>();
 		getToDoSortArray().forEach(item->arrTitle.add(item));
-		
-//		toDoArray = (ArrayList<ToDo>) getToDoSortArray().clone();
 		
 		System.out.println("cnt:"+getToDoSortArray().size());
 		
@@ -884,12 +874,11 @@ public class TaskManager extends Application {
 		VBox vbRight = new VBox();
 		vbRight.setMinWidth(100);
 
- 
-        vbRight.setStyle("-fx-font: 15px Tahoma; -fx-stroke: black; -fx-stroke-width: 1;");
+		vbRight.setStyle("-fx-font: 15px Tahoma; -fx-stroke: black; -fx-stroke-width: 1;");
 		vbRight.setAlignment(Pos.CENTER);
 		vbRight.setPadding(new Insets(20));
-        Label label = new Label("ListViewSorting");
 
+		
     	Button titleBtn = new Button("SortByTitle");
     	Button subjectBtn = new Button("SortBySubject");
     	Button dueBtn = new Button("SortByDueDate");
@@ -904,14 +893,13 @@ public class TaskManager extends Application {
     	comBtn.setMaxSize(120, 100);
     	reverseBtn.setMaxSize(120, 100);
     	
-    	vbRight.getChildren().addAll(label,titleBtn, subjectBtn,dueBtn,priBtn,comBtn,reverseBtn);
+    	vbRight.getChildren().addAll(titleBtn, subjectBtn,dueBtn,priBtn,comBtn,reverseBtn);
 
 //		objItem = FXCollections.observableList(getListTitle());
 //		list.setItems(objItem);
 
     	getListView();
     	titleBtn.setOnAction(e-> {
-//			saveYN=true;
   
     		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
     		td1.getTitle().toLowerCase().compareTo(td2.getTitle().toLowerCase())
@@ -926,7 +914,6 @@ public class TaskManager extends Application {
     	});
 
     	subjectBtn.setOnAction(e-> {
-//			saveYN=true;
 
     		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
     		td1.getSubject().toLowerCase().compareTo(td2.getSubject().toLowerCase())
@@ -939,7 +926,6 @@ public class TaskManager extends Application {
     	});
 
     	dueBtn.setOnAction(e-> {
-//			saveYN=true;
     		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
     		td1.getDueDate().compareTo(td2.getDueDate())
     		);
@@ -950,7 +936,6 @@ public class TaskManager extends Application {
     	});
 
     	priBtn.setOnAction(e-> {
-//			saveYN=true;
     		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
     		td1.getPriority() - td2.getPriority()
     		);
@@ -962,7 +947,6 @@ public class TaskManager extends Application {
     	});
 
     	comBtn.setOnAction(e-> {
-//			saveYN=true;
 
     		getToDoSortArray().sort((ToDo td1, ToDo td2) ->
     		Boolean.valueOf(td1.isCompleted()).compareTo(Boolean.valueOf(td2.isCompleted()))
@@ -975,7 +959,6 @@ public class TaskManager extends Application {
     	});
 
     	reverseBtn.setOnAction(e-> {
-//			saveYN=true;
     		FXCollections.reverse((ObservableList<String>) objItem);
     	});
     	
@@ -991,10 +974,6 @@ public class TaskManager extends Application {
 		vbRight.setAlignment(Pos.CENTER);
 		vbRight.setPadding(new Insets(20));
 
-
-        Label label = new Label("TableViewSorting");
-//        label.setFont(new Font("Arial", 20));
-
 		
     	Button titleBtn = new Button("SortByTitle");
     	Button subjectBtn = new Button("SortBySubject");
@@ -1010,7 +989,7 @@ public class TaskManager extends Application {
     	comBtn.setMaxSize(120, 100);
     	reverseBtn.setMaxSize(120, 100);
     	
-    	vbRight.getChildren().addAll(label,titleBtn, subjectBtn,dueBtn,priBtn,comBtn,reverseBtn);
+    	vbRight.getChildren().addAll(titleBtn, subjectBtn,dueBtn,priBtn,comBtn,reverseBtn);
 
 //    	data = FXCollections.observableArrayList(getTableListView());    
 //    	table.setItems(data);
@@ -1087,10 +1066,7 @@ public class TaskManager extends Application {
 	
 	public VBox getLeftPane(BorderPane root) {
 
-        table.getItems().clear();
-        table = new TableView<ToDo>();
-
-		final Label label = new Label("Table View");
+        final Label label = new Label("Table View");
         label.setFont(new Font("Arial", 20));
  
         table.setEditable(false);
@@ -1106,8 +1082,7 @@ public class TaskManager extends Application {
                 new PropertyValueFactory<ToDo, String>("Priority"));
  
         
-        data = FXCollections.observableArrayList(getTableListView());   
-        
+        data = FXCollections.observableArrayList(getTableListView());    
         table.setItems(data);
         table.getColumns().addAll(title, priority);
         
@@ -1123,9 +1098,6 @@ public class TaskManager extends Application {
                      && event.getClickCount() == 2) {
 
                     ToDo clickedRow = row.getItem();
-//        	    	saveYN=false;
-        			toDoArray = (ArrayList<ToDo>) getToDoSortArray().clone();
-        			setToDoElement(row.getIndex());
         			root.setCenter(getCenterPane(getToDoSortArray().get(row.getIndex())));
                }
             });
@@ -1138,20 +1110,13 @@ public class TaskManager extends Application {
 	
 	public void getChangeCenterListView(BorderPane root){
 		list.setOnMouseClicked(e->{
-//			toDoArray = (ArrayList<ToDo>) getToDoSortArray().clone();
-//	    	saveYN=false;
-	    	
-	    	System.out.println("element:"+getToDoElement());
-			toDoArray = (ArrayList<ToDo>) getToDoSortArray().clone();
-			setToDoElement(list.getSelectionModel().getSelectedIndex());
-	    	
-	    	root.setCenter(getCenterPane(getToDoSortArray().get(list.getSelectionModel().getSelectedIndex())));
+	    	System.out.println(list.getSelectionModel().getSelectedIndex());
+			root.setCenter(getCenterPane(getToDoSortArray().get(list.getSelectionModel().getSelectedIndex())));
 	    	
 	    });
 	    	
 
 	}
-
 	
 	
 }

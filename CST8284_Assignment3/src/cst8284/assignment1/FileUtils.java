@@ -1,4 +1,20 @@
 package cst8284.assignment1;
+/**
+ * @fileName FileUtils.java
+ * @author Saeil Kim 040845408
+ * @course CST8284
+ * @section 300
+ * @assignment Assignment3
+ * @version 3.0
+ * @date 2017.04.17
+ * @professor David Houtman
+ * @purpose Controlling File (i.e read a file, write a file, creating arrayLst from the file
+ * @Create_User David Houtman
+ * @Create_date 2017. 03.
+ * @Modify_User Saeil Kim
+ * @Modify_date 2017. 04. 17.
+ */
+
 
 import java.io.EOFException;
 import java.io.File;

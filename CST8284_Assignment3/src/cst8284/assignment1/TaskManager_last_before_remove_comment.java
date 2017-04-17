@@ -65,7 +65,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class TaskManager extends Application {
+public class TaskManager_last_before_remove_comment extends Application {
 
 	private ArrayList<ToDo> toDoArray;
 	private static int currentToDoElement;
