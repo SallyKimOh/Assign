@@ -8,7 +8,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
@@ -37,10 +36,15 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -51,10 +55,12 @@ import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 public class TaskManager extends Application {
@@ -74,6 +80,9 @@ public class TaskManager extends Application {
 	private ListView<String> list = new ListView<String>();
 	private ObservableList<String> objItem;
 	private ArrayList<ToDo> toDoSortArray = new ArrayList<ToDo>();
+    private TableView<ToDo> table = new TableView<ToDo>();
+    private ObservableList<ToDo> data;    
+
 
 
 
@@ -492,14 +501,31 @@ public class TaskManager extends Application {
 	}
 
 	public BorderPane getToDoPane(ToDo td) {
-		VBox vbLeft = new VBox();
-		vbLeft.setMinWidth(120);
 
 		BorderPane rootNode = new BorderPane();
+
+		VBox vbLeft = new VBox();
+		vbLeft.setMinWidth(120);
+		
+		BorderPane bp = new BorderPane();
+		bp.setTop(list);
+		bp.setCenter(getLeftPane(rootNode));
+		
+		BorderPane bp2 = new BorderPane();
+		bp2.setTop(getRightPane());
+		bp2.setCenter(getRightTablePane());
+				
+		
+		getChangeCenterListView(rootNode);		
+		
 		
 		rootNode.setTop(getMenuBar());
-		rootNode.setLeft(list);
-		rootNode.setRight(getRightPane());
+//		rootNode.setLeft(list);		//for listview
+//		rootNode.setLeft(getLeftPane());	//tableview
+		rootNode.setLeft(bp);		//total
+//		rootNode.setRight(getRightPane());	//listview
+//		rootNode.setRight(getRightTablePane());	//table view
+		rootNode.setRight(bp2);
 		rootNode.setBottom(getBottomPane(td, rootNode));
 		rootNode.setCenter(getCenterPane(td));
 		
@@ -826,10 +852,22 @@ public class TaskManager extends Application {
 		return arrTitle;
 	}
 
+	public ArrayList<ToDo> getTableListView(){
+		ArrayList<ToDo> arrTitle = new ArrayList<ToDo>();
+		getToDoSortArray().forEach(item->arrTitle.add(item));
+		
+		System.out.println("cnt:"+getToDoSortArray().size());
+		
+		return arrTitle;
+	}
+
+	
+	
 	public void getListView(){
 		objItem = FXCollections.observableList(getListTitle());
 
 		list.setItems(objItem);
+
 	}
 	
 	public VBox getRightPane(){
@@ -928,12 +966,156 @@ public class TaskManager extends Application {
     	return vbRight;
 	}
 
+	public VBox getRightTablePane(){
+		VBox vbRight = new VBox();
+		vbRight.setMinWidth(100);
+
+		vbRight.setStyle("-fx-font: 15px Tahoma; -fx-stroke: black; -fx-stroke-width: 1;");
+		vbRight.setAlignment(Pos.CENTER);
+		vbRight.setPadding(new Insets(20));
+
+		
+    	Button titleBtn = new Button("SortByTitle");
+    	Button subjectBtn = new Button("SortBySubject");
+    	Button dueBtn = new Button("SortByDueDate");
+    	Button priBtn = new Button("SortByPriority");
+    	Button comBtn = new Button("SortByCompleted");
+    	Button reverseBtn = new Button("SortReverse");
+
+    	titleBtn.setMaxSize(120, 100);
+    	subjectBtn.setMaxSize(120, 100);
+    	dueBtn.setMaxSize(120, 100);
+    	priBtn.setMaxSize(120, 100);
+    	comBtn.setMaxSize(120, 100);
+    	reverseBtn.setMaxSize(120, 100);
+    	
+    	vbRight.getChildren().addAll(titleBtn, subjectBtn,dueBtn,priBtn,comBtn,reverseBtn);
+
+//    	data = FXCollections.observableArrayList(getTableListView());    
+//    	table.setItems(data);
+
+    	titleBtn.setOnAction(e-> {
+  
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+    		td1.getTitle().toLowerCase().compareTo(td2.getTitle().toLowerCase())
+    		);
+ 
+    		data = FXCollections.observableArrayList(getTableListView());
+    		table.setItems(data);
+    		
+    	});
+
+    	subjectBtn.setOnAction(e-> {
+
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+    		td1.getSubject().toLowerCase().compareTo(td2.getSubject().toLowerCase())
+    		);
+
+    		data = FXCollections.observableArrayList(getTableListView());  	
+    		table.setItems(data);
+    		
+    	});
+
+    	dueBtn.setOnAction(e-> {
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+    		td1.getDueDate().compareTo(td2.getDueDate())
+    		);
+    		
+    		data = FXCollections.observableArrayList(getTableListView());  	
+    		table.setItems(data);
+    
+    	});
+
+    	priBtn.setOnAction(e-> {
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+    		td1.getPriority() - td2.getPriority()
+    		);
+    		
+    		data = FXCollections.observableArrayList(getTableListView());  	
+    		table.setItems(data);
+    	});
+
+    	comBtn.setOnAction(e-> {
+
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) ->
+    		Boolean.valueOf(td1.isCompleted()).compareTo(Boolean.valueOf(td2.isCompleted()))
+    		);
+    		
+    		data = FXCollections.observableArrayList(getTableListView());  	
+    		table.setItems(data);
+    	});
+
+    	reverseBtn.setOnAction(e-> {
+    		FXCollections.reverse((ObservableList<ToDo>) data);
+    		table.setItems(data);
+    	});
+    	
+		
+    	return vbRight;
+	}
+	
+	
 	public ArrayList<ToDo> getToDoSortArray() {
 		return toDoSortArray;
 	}
 
 	public void setToDoSortArray(ArrayList<ToDo> toDoSortArray) {
 		this.toDoSortArray = toDoSortArray;
+	}
+	
+	
+	public VBox getLeftPane(BorderPane root) {
+
+        final Label label = new Label("Table View");
+        label.setFont(new Font("Arial", 20));
+ 
+        table.setEditable(false);
+ 
+        TableColumn title = new TableColumn("Title");
+        title.setMinWidth(100);
+        title.setCellValueFactory(
+                new PropertyValueFactory<ToDo, String>("Title"));
+ 
+        TableColumn priority = new TableColumn("Priority");
+        priority.setMinWidth(100);
+        priority.setCellValueFactory(
+                new PropertyValueFactory<ToDo, String>("Priority"));
+ 
+        
+        data = FXCollections.observableArrayList(getTableListView());    
+        table.setItems(data);
+        table.getColumns().addAll(title, priority);
+        
+        final VBox vbox = new VBox();
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.getChildren().addAll(label, table);
+	
+        table.setRowFactory(tv -> {
+            TableRow<ToDo> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY 
+                     && event.getClickCount() == 2) {
+
+                    ToDo clickedRow = row.getItem();
+        			root.setCenter(getCenterPane(getToDoSortArray().get(row.getIndex())));
+               }
+            });
+            return row ;
+        });
+        
+		return vbox;
+	}
+
+	
+	public void getChangeCenterListView(BorderPane root){
+		list.setOnMouseClicked(e->{
+	    	System.out.println(list.getSelectionModel().getSelectedIndex());
+			root.setCenter(getCenterPane(getToDoSortArray().get(list.getSelectionModel().getSelectedIndex())));
+	    	
+	    });
+	    	
+
 	}
 	
 	
