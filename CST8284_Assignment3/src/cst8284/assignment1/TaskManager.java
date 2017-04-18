@@ -1249,14 +1249,6 @@ public class TaskManager extends Application {
         Label label = new Label("TableView Sorting");
         label.setStyle("-fx-font: 20px Tahoma; -fx-text-fill: Blue");
 
-        
-//    	Button titleBtn = new Button("SortByTitle");
-//    	Button subjectBtn = new Button("SortBySubject");
-//    	Button dueBtn = new Button("SortByDueDate");
-//    	Button priBtn = new Button("SortByPriority");
-//    	Button comBtn = new Button("SortByCompleted");
-//    	Button reverseBtn = new Button("SortReverse");
-
     	ToggleButton titleBtn = new ToggleButton("SortByTitle");
     	ToggleButton subjectBtn = new ToggleButton("SortBySubject");
     	ToggleButton dueBtn = new ToggleButton("SortByDueDate");
@@ -1267,7 +1259,6 @@ public class TaskManager extends Application {
     	ToggleGroup toggleGroup = new ToggleGroup();
 
     	titleBtn.setToggleGroup(toggleGroup);
-    	titleBtn.setUserData("title");
     	subjectBtn.setToggleGroup(toggleGroup);
     	dueBtn.setToggleGroup(toggleGroup);
     	priBtn.setToggleGroup(toggleGroup);   	
@@ -1283,228 +1274,16 @@ public class TaskManager extends Application {
     	reverseBtn.setMaxSize(120, 100);
     	
     	vbRight.getChildren().addAll(label,titleBtn, subjectBtn,dueBtn,priBtn,comBtn,reverseBtn);
-
-    			
     	toggleGroup.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, 
     			Toggle toggle, Toggle new_toggle) -> {
-    				
-    				titleBtn.setOnAction(e-> {
-    		    		  
-    		    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
-    		    		td1.getTitle().toLowerCase().compareTo(td2.getTitle().toLowerCase())
-    		    		);
-    		 
-    		    		data = FXCollections.observableArrayList(getTableListView());
-    		    		table.setItems(data);
-    		    		//======= for copy and relocate each arraylist ==============//
-    					setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
-    					setToDoElement(0);
-    					//==========================================================//
-    		    		root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-    		    	});
-
-    		    	subjectBtn.setOnAction(e-> {
-
-    		    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
-    		    		td1.getSubject().toLowerCase().compareTo(td2.getSubject().toLowerCase())
-    		    		);
-
-    		    		data = FXCollections.observableArrayList(getTableListView());  	
-    		    		table.setItems(data);
-    		    		//======= for copy and relocate each arraylist ==============//
-    					setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
-    					setToDoElement(0);
-    					//==========================================================//
-    		    		root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-    		    	});
-
-    		    	dueBtn.setOnAction(e-> {
-    		    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
-    		    		td1.getDueDate().compareTo(td2.getDueDate())
-    		    		);
-    		    		
-    		    		data = FXCollections.observableArrayList(getTableListView());  	
-    		    		table.setItems(data);
-    		    		//======= for copy and relocate each arraylist ==============//
-    					setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
-    					setToDoElement(0);
-    					//==========================================================//
-    		    		root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-    		    	});
-
-    		    	priBtn.setOnAction(e-> {
-    		    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
-    		    		td1.getPriority() - td2.getPriority()
-    		    		);
-    		    		
-    		    		data = FXCollections.observableArrayList(getTableListView());  	
-    		    		table.setItems(data);
-    		    		//======= for copy and relocate each arraylist ==============//
-    					setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
-    					setToDoElement(0);
-    					//==========================================================//
-    		    		root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-    		    	});
-
-    		    	comBtn.setOnAction(e-> {
-
-    		    		getToDoSortArray().sort((ToDo td1, ToDo td2) ->
-    		    		Boolean.valueOf(td1.isCompleted()).compareTo(Boolean.valueOf(td2.isCompleted()))
-    		    		);
-    		    		
-    		    		data = FXCollections.observableArrayList(getTableListView());  	
-    		    		table.setItems(data);
-    		    		//======= for copy and relocate each arraylist ==============//
-    					setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
-    					setToDoElement(0);
-    					//==========================================================//
-    		    		root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-    		    	});
-
-    		    	reverseBtn.setOnAction(e-> {
-    		    		FXCollections.reverse((ObservableList<ToDo>) data);
-    		    		table.setItems(data);
-    		    		toDoSortArray.clear();
-    		    		data.forEach(item->toDoSortArray.add(item));
-    		    		//======= for copy and relocate each arraylist ==============//
-    					setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
-    					setToDoElement(0);
-    					//==========================================================//
-    		    		root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-    		    	});
-    		    	
-    		    	
-    		    	
-    				
-//    				titleBtn.setOnAction(e-> getToDoSortArray().sort((ToDo td1, ToDo td2) -> td1.getTitle().toLowerCase().compareTo(td2.getTitle().toLowerCase())));
-//    		    	subjectBtn.setOnAction(e-> getToDoSortArray().sort((ToDo td1, ToDo td2) -> td1.getSubject().toLowerCase().compareTo(td2.getSubject().toLowerCase())));
-//    		    	dueBtn.setOnAction(e-> getToDoSortArray().sort((ToDo td1, ToDo td2) -> td1.getDueDate().compareTo(td2.getDueDate())));
-//    		    	priBtn.setOnAction(e-> getToDoSortArray().sort((ToDo td1, ToDo td2) -> td1.getPriority() - td2.getPriority()));
-//    		    	comBtn.setOnAction(e-> getToDoSortArray().sort((ToDo td1, ToDo td2) -> Boolean.valueOf(td1.isCompleted()).compareTo(Boolean.valueOf(td2.isCompleted()))));
-//    	    		data = FXCollections.observableArrayList(getTableListView());
-//    		    	reverseBtn.setOnAction(e-> FXCollections.reverse((ObservableList<ToDo>) data));
-//    		    	
-//    	    		table.setItems(data);
-//    	    		//======= for copy and relocate each arraylist ==============//
-//    				setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
-//    				setToDoElement(0);
-//    				//==========================================================//
-//    	    		root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-//    	    		
-////    		    	table.setItems(data);
-////    		    	//======= for copy and relocate each arraylist ==============//
-////    				setToDoElement(getToDoArray().size()-1);
-////    				//==========================================================//
-////    			    root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-    	});
-    			
-
-/*    	
-    	toggleGroup.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, 
-    			Toggle toggle, Toggle new_toggle) -> {
-    				titleBtn.setOnAction(e-> {
-        				System.out.println("TT");
-    					
-    				});
-    				System.out.println("AAAA");
-    				if (new_toggle == null)
-    					System.out.println("default value");
-    				else
-    					System.out.println("value==>"+toggleGroup.getSelectedToggle().getUserData());
-					System.out.println("value==>"+toggleGroup.getSelectedToggle().getUserData());
-        });
-    	
-*/   
-
-/*    	
-    	
-    	titleBtn.setOnAction(e-> {
-  
-    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
-    		td1.getTitle().toLowerCase().compareTo(td2.getTitle().toLowerCase())
-    		);
- 
-    		data = FXCollections.observableArrayList(getTableListView());
-    		table.setItems(data);
-    		//======= for copy and relocate each arraylist ==============//
-			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
-			setToDoElement(0);
-			//==========================================================//
-    		root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-    		
-    		
+    				titleBtn.setOnAction(e-> getSortByItem(1,root));
+    		    	subjectBtn.setOnAction(e-> getSortByItem(2,root));
+    		    	dueBtn.setOnAction(e-> getSortByItem(3,root));
+    		    	priBtn.setOnAction(e-> getSortByItem(4,root));
+    		    	comBtn.setOnAction(e->getSortByItem(5,root));
+    		    	reverseBtn.setOnAction(e-> getSortByItem(6,root));
     	});
 
-    	subjectBtn.setOnAction(e-> {
-
-    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
-    		td1.getSubject().toLowerCase().compareTo(td2.getSubject().toLowerCase())
-    		);
-
-    		data = FXCollections.observableArrayList(getTableListView());  	
-    		table.setItems(data);
-    		//======= for copy and relocate each arraylist ==============//
-			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
-			setToDoElement(0);
-			//==========================================================//
-	    	root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-    		
-    	});
-
-    	dueBtn.setOnAction(e-> {
-    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
-    		td1.getDueDate().compareTo(td2.getDueDate())
-    		);
-    		
-    		data = FXCollections.observableArrayList(getTableListView());  	
-    		table.setItems(data);
-    		//======= for copy and relocate each arraylist ==============//
-			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
-			setToDoElement(0);
-			//==========================================================//
-	    	root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-    
-    	});
-
-    	priBtn.setOnAction(e-> {
-    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
-    		td1.getPriority() - td2.getPriority()
-    		);
-    		
-    		data = FXCollections.observableArrayList(getTableListView());  	
-    		table.setItems(data);
-    		//======= for copy and relocate each arraylist ==============//
-			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
-			setToDoElement(0);
-			//==========================================================//
-	    	root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-    	});
-
-    	comBtn.setOnAction(e-> {
-
-    		getToDoSortArray().sort((ToDo td1, ToDo td2) ->
-    		Boolean.valueOf(td1.isCompleted()).compareTo(Boolean.valueOf(td2.isCompleted()))
-    		);
-    		
-    		data = FXCollections.observableArrayList(getTableListView());  	
-    		table.setItems(data);
-    		//======= for copy and relocate each arraylist ==============//
-			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
-			setToDoElement(0);
-			//==========================================================//
-	    	root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-    	});
-
-    	reverseBtn.setOnAction(e-> {
-    		FXCollections.reverse((ObservableList<ToDo>) data);
-    		table.setItems(data);
-    		//======= for copy and relocate each arraylist ==============//
-			setToDoElement(getToDoArray().size()-1);
-			//==========================================================//
-	    	root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-    	});
-*/    	
-		
     	return vbRight;
 	}
 	
@@ -1595,9 +1374,73 @@ public class TaskManager extends Application {
 	    	
 	    });
 	    	
-
 	}
 
+
+	/**
+	 * This method provides sorting by each item.
+	 * The titles will be sorted when the Item button clicked.
+	 * Therefore, their list will be different.
+	 * @param sortItem sortbyItem code (1: title, 2: subject, 3: duedate, 4: priority, 5 completed, 6 reverse)
+	 * @param root BorderPane. This will be reloading current scene for reflecting new sorting data
+	 */
+	public void getSortByItem(int sortItem, BorderPane root){
+
+		switch (sortItem) {
+			case 1:
+				getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+				td1.getTitle().toLowerCase().compareTo(td2.getTitle().toLowerCase())
+				);
+				data = FXCollections.observableArrayList(getTableListView());
+				table.setItems(data);
+				break;
+			case 2:
+	    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+	    		td1.getSubject().toLowerCase().compareTo(td2.getSubject().toLowerCase())
+	    		);
+	    		data = FXCollections.observableArrayList(getTableListView());
+	    		table.setItems(data);
+				break;
+			case 3:
+	    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+	    		td1.getDueDate().compareTo(td2.getDueDate())
+	    		);
+	    		data = FXCollections.observableArrayList(getTableListView());
+	    		table.setItems(data);
+				break;
+			case 4:
+	    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+	    		td1.getPriority() - td2.getPriority()
+	    		);
+	    		data = FXCollections.observableArrayList(getTableListView());
+	    		table.setItems(data);
+				break;
+			case 5:
+	    		getToDoSortArray().sort((ToDo td1, ToDo td2) ->
+	    		Boolean.valueOf(td1.isCompleted()).compareTo(Boolean.valueOf(td2.isCompleted()))
+	    		);
+	    		data = FXCollections.observableArrayList(getTableListView());
+	    		table.setItems(data);
+				break;
+			case 6:
+
+	    		FXCollections.reverse((ObservableList<ToDo>) data);
+	    		table.setItems(data);
+	    		toDoSortArray.clear();
+	    		data.forEach(item->toDoSortArray.add(item));
+				break;
+		}
+
+		//======= for copy and relocate each arraylist ==============//
+		setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
+		setToDoElement(0);
+		//==========================================================//
+		root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
+		
+		
+		
+	}
+	
 	
 	
 }
