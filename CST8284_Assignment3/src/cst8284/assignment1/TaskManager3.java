@@ -477,7 +477,7 @@ public class TaskManager3 extends Application {
 			alert = new Alert(AlertType.INFORMATION);
     
     		try {
-    			new FileUtils().setToDoArrayyListToFile(fc.getInitialFileName(), toDoArray);
+    			new FileUtils().setToDoArrayListToFile(fc.getInitialFileName(), toDoArray);
        			alert.setContentText("Deleting is successful");
     		
 //       		System.out.println("remove11:"+fc.getInitialFileName());
@@ -587,7 +587,7 @@ public class TaskManager3 extends Application {
 				System.out.println("arraylen:"+toDoArray.size());
 				
 				
-				new FileUtils().setToDoArrayyListToFile(fc.getInitialFileName(),toDoArray);
+				new FileUtils().setToDoArrayListToFile(fc.getInitialFileName(),toDoArray);
 				getToDoArray().get(getToDoElement()).setRemove(true);
 				
 				if (btnTypeYN==null)		

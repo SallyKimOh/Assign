@@ -550,7 +550,7 @@ public class TaskManager2 extends Application {
 //		toDoArray.set(getToDoElement(), tdTemp);
 		toDoArray.add(getToDoElement(), tdTemp);
 		
-		new FileUtils().setToDoArrayyListToFile(fc.getInitialFileName(),toDoArray);
+		new FileUtils().setToDoArrayListToFile(fc.getInitialFileName(),toDoArray);
 		
 //			try (
 //					FileOutputStream fos = new FileOutputStream(fc.getInitialFileName());

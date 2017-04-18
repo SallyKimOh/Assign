@@ -1,5 +1,6 @@
 package cst8284.assignment1;
 /**
+ * Read a file, write a file, validation check and create arrayList<ToDo>
  * @fileName FileUtils.java
  * @author Saeil Kim 040845408
  * @course CST8284
@@ -13,8 +14,15 @@ package cst8284.assignment1;
  * @Create_date 2017. 03.
  * @Modify_User Saeil Kim
  * @Modify_date 2017. 04. 17.
+ * @see java.io.EOFException
+ * @see java.io.File
+ * @see java.io.FileInputStream
+ * @see java.io.FileOutputStream
+ * @see java.io.IOException
+ * @see java.io.ObjectInputStream
+ * @see java.io.ObjectOutputStream
+ * @see java.util.ArrayList
  */
-
 
 import java.io.EOFException;
 import java.io.File;
@@ -27,8 +35,16 @@ import java.util.ArrayList;
 
 public class FileUtils {
 
+	/**
+	 * The relPath is providing default fileName
+	 */
 	private static String relPath = "ToDoList.todo";
-	
+
+	/**
+	 * This method is used to create ArrayList of ToDo from the file
+	 * @param fileName 
+	 * @return ArrayList<ToDo>
+	 */
 	public ArrayList<ToDo> getToDoArray(String fileName) {
 		ArrayList<ToDo> toDos = new ArrayList<ToDo>();
 		
@@ -53,7 +69,11 @@ public class FileUtils {
 	
 	
 	
-	
+	/**
+	 * Creating FileinputStream from the file
+	 * @param absPath filePath
+	 * @return FileInputStream file changes to fileInputStream 
+	 */
 	public static FileInputStream getFIStreamFromAbsPath(String absPath){
 		FileInputStream fis = null;
 		try {
@@ -64,23 +84,47 @@ public class FileUtils {
 		return fis;
 	}
 	
+	
+	/**
+	 * Return AbsolutePath with No the parameter
+	 * @return String return absolutepath of file
+	 */
 	public static String getAbsPath() {
 		return relPath;
 	}
 
+	/**
+	 * Return AbsolutePath with a file parameter
+	 * @param f filename
+	 * @return String return absolutepath of file
+	 */
 	public static String getAbsPath(File f) {
 		return f.getAbsolutePath();
 	}
 
+	/**
+	 * Set-up Real path that if file exists return absolutepath else ""
+	 * @param f fileName
+	 */
 	public static void setAbsPath(File f) { 
 		relPath = (fileExists(f))? f.getAbsolutePath():""; 
 	}
 	
+	/**
+	 * Checking validation of file that file exists or check file type or read available
+	 * @param f fileName
+	 * @return Boolean 
+	 */
 	public static Boolean fileExists(File f) {
 		return (f != null && f.exists() && f.isFile() && f.canRead());
 	}
 	
-	public static void setToDoArrayyListToFile(String fileName, ArrayList<ToDo> toDoArray){
+	/**
+	 * Creating File Again from existing toDoArray
+	 * @param fileName For create array, exist filename input
+	 * @param toDoArray Call to exist toDoArray for creating the fileStream
+	 */
+	public static void setToDoArrayListToFile(String fileName, ArrayList<ToDo> toDoArray){
 		try (
 				FileOutputStream fos = new FileOutputStream(fileName);
 				ObjectOutputStream oos = new ObjectOutputStream(fos);

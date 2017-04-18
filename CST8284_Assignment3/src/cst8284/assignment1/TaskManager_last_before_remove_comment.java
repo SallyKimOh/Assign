@@ -352,7 +352,7 @@ public class TaskManager_last_before_remove_comment extends Application {
 			alert = new Alert(AlertType.INFORMATION);
     
     		try {
-    			new FileUtils().setToDoArrayyListToFile(fc.getInitialFileName(), toDoArray);
+    			new FileUtils().setToDoArrayListToFile(fc.getInitialFileName(), toDoArray);
        			alert.setContentText("Deleting is successful");
     		
     		} catch (Exception e) {
@@ -426,7 +426,7 @@ public class TaskManager_last_before_remove_comment extends Application {
 				
 				tdTemp.setDueDate(date);
 				
-				new FileUtils().setToDoArrayyListToFile(fc.getInitialFileName(),toDoArray);
+				new FileUtils().setToDoArrayListToFile(fc.getInitialFileName(),toDoArray);
 				getToDoArray().get(getToDoElement()).setRemove(true);
 				
 //				getToDoArray().forEach(item->toDoSortArray.add(item));
