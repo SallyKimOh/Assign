@@ -1,10 +1,54 @@
 package cst8284.assignment1;
+/**
+ * This class manages ToDo object that is adding ToDo objects and removing ToDo objects
+ * Also Task displays sequential ToDo List and can change order of ToDo
+ * @fileName TaskManger.java
+ * @author Saeil Kim 040845408
+ * @course CST8284
+ * @section 300
+ * @assignment Assignment3
+ * @version 3.0
+ * @date 2017.04.17
+ * @professor David Houtman
+ * @purpose Managine ToDo object for displaying Task and Editing and removing Objects
+ * @Create_User David Houtman
+ * @Create_date 2017. 03.
+ * @Modify_User Saeil Kim
+ * @Modify_date 2017. 04. 17.
+ * @see java.io.File
+ * @see java.time
+ * @see javafx.animation
+ * @see javafx.application.Application
+ * @see javafx.application.Platform
+ * @see javafx.collections.FXCollections
+ * @see javafx.collections.ObservableList
+ * @see javafx.geometry.Insets
+ * @see javafx.geometry.Pos
+ * @see javafx.scene.Group
+ * @see javafx.scene.Node
+ * @see javafx.scene.Scene
+ * @see javafx.scene.control
+ * @see javafx.scene.effect.DropShadow;
+ * @see javafx.scene.input.MouseButton;
+ * @see javafx.scene.layout
+ * @see javafx.scene.paint.Color
+ * @see javafx.scene.shape
+ * @see javafx.scene.text.Font
+ * @see javafx.scene.text.Text
+ * @see javafx.stage.FileChooser
+ * @see javafx.stage.Stage
+ * @see javafx.util.Duration
+ */
+
+
 import java.io.File;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Optional;
 
@@ -17,12 +61,9 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -66,50 +107,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-/**
- * This class manages ToDo object that is adding ToDo objects and removing ToDo objects
- * Also Task displays sequential ToDo List and can change order of ToDo
- * @fileName TaskManger.java
- * @author Saeil Kim 040845408
- * @course CST8284
- * @section 300
- * @assignment Assignment3
- * @version 3.0
- * @date 2017.04.17
- * @professor David Houtman
- * @purpose Managine ToDo object for displaying Task and Editing and removing Objects
- * @Create_User David Houtman
- * @Create_date 2017. 03.
- * @Modify_User Saeil Kim
- * @Modify_date 2017. 04. 17.
- * @see java.io.File
- * @see java.time
- * @see javafx.animation
- * @see javafx.application.Application
- * @see javafx.application.Platform
- * @see javafx.collections.FXCollections
- * @see javafx.collections.ObservableList
- * @see javafx.geometry.Insets
- * @see javafx.geometry.Pos
- * @see javafx.scene.Group
- * @see javafx.scene.Node
- * @see javafx.scene.Scene
- * @see javafx.scene.control
- * @see javafx.scene.effect.DropShadow;
- * @see javafx.scene.input.MouseButton;
- * @see javafx.scene.layout
- * @see javafx.scene.paint.Color
- * @see javafx.scene.shape
- * @see javafx.scene.text.Font
- * @see javafx.scene.text.Text
- * @see javafx.stage.FileChooser
- * @see javafx.stage.Stage
- * @see javafx.util.Duration
- */
-
-
-
-public class TaskManager extends Application {
+public class TaskManager_using_toggleGroup_button extends Application {
 
 	/**
 	 * The toDoArray is ArrayList of ToDo
@@ -162,7 +160,7 @@ public class TaskManager extends Application {
 	/**
 	 * The toDoSortArray is a ArrayList of ToDo that will be worked for sorting of ArrayList of ToDo
 	 */
-	private ArrayList<ToDo> toDoSortArray = new ArrayList<ToDo>();
+//	private ArrayList<ToDo> toDoSortArray = new ArrayList<ToDo>();
 	/**
 	 * The table is a property of TableView of ToDo that will be display ObservableList of ToDo
 	 */
@@ -185,7 +183,7 @@ public class TaskManager extends Application {
 		primaryStage.setOnCloseRequest(e -> getBackUpFile());        
 		
 	}
-
+	
 	/**
 	 * Creating a backup file from original the original file and exit
 	 */
@@ -377,10 +375,10 @@ public class TaskManager extends Application {
 			ArrayList<ToDo> tdCompactArray = getToDoArrayWithoutEmpties(tdRawArray);
 
 			setToDoArray(tdCompactArray);
-			toDoSortArray = new ArrayList<ToDo>();
+//			toDoSortArray = new ArrayList<ToDo>();
 			
 			
-			getToDoArray().forEach(item->toDoSortArray.add(item));
+//			getToDoArray().forEach(item->toDoSortArray.add(item));
 			
 			setToDoElement(0);
 
@@ -475,9 +473,8 @@ public class TaskManager extends Application {
 		    		
     	}          	
 
-		toDoSortArray = new ArrayList<ToDo>();
-		toDoSortArray.clear();
-		getToDoArray().forEach(item->toDoSortArray.add(item));
+//		toDoSortArray = new ArrayList<ToDo>();
+//		getToDoArray().forEach(item->toDoSortArray.add(item));
 
 		if ((getToDoElement()-1 == getToDoArray().size()-1) && (getToDoElement() > 0)) {
 			setToDoElement(getToDoElement()-1);
@@ -485,6 +482,10 @@ public class TaskManager extends Application {
 		} else if (getToDoArray().size() < 1) {
 			Platform.exit();
 		} 
+
+//		if (getToDoArray().size() < 1) Platform.exit();
+//		setToDoElement(0);
+		
 		
 		getPrimaryStage().setScene(getToDoScene(getToDoArray().get(getToDoElement())));
 		
@@ -528,7 +529,7 @@ public class TaskManager extends Application {
 				tdTemp.setTitle(getTempTitle().getText());
 				tdTemp.setSubject(getTempSubject().getText());
 				try {
-					if (getTempGroup().getSelectedToggle().isSelected())
+					if (getTempGroup().hasProperties()) 
 						tdTemp.setPriority(Integer.parseInt(getTempGroup().getSelectedToggle().getUserData().toString()));
 				} catch (Exception e) {
 					tdTemp.setPriority(1);	//setting default 1
@@ -541,7 +542,9 @@ public class TaskManager extends Application {
 				tdTemp.setDueDate(date);
 				
 				new FileUtils().setToDoArrayListToFile(fc.getInitialFileName(),toDoArray);
-				setToDoSortArray((ArrayList<ToDo>) getToDoArray().clone());
+				getToDoArray().get(getToDoElement()).setRemove(true);
+				
+//				getToDoSortArray().add(getToDoArray().get(getToDoElement()));
 
 				System.out.println("current:"+getToDoElement());
 				if (btnTypeYN==null)		
@@ -620,8 +623,8 @@ public class TaskManager extends Application {
 			ArrayList<ToDo> tdRawArray = fUtils.getToDoArray(FileUtils.getAbsPath());
 			ArrayList<ToDo> tdCompactArray = getToDoArrayWithoutEmpties(tdRawArray);
 			setToDoArray(tdCompactArray);
-			toDoSortArray = new ArrayList<ToDo>();
-			getToDoArray().forEach(item->toDoSortArray.add(item));
+//			toDoSortArray = new ArrayList<ToDo>();
+//			getToDoArray().forEach(item->toDoSortArray.add(item));
 			setToDoElement(0);
 			td = getToDoArray().get(getToDoElement());
 		}
@@ -1078,7 +1081,8 @@ public class TaskManager extends Application {
 	 */
 	public ArrayList<String> getListTitle(){
 		ArrayList<String> arrTitle = new ArrayList<String>();
-		getToDoSortArray().forEach(item->arrTitle.add(item.getTitle()));
+//		getToDoSortArray().forEach(item->arrTitle.add(item.getTitle()));
+		getToDoArray().forEach(item->arrTitle.add(item.getTitle()));
 //		setToDoElement(0);
 		
 		return arrTitle;
@@ -1091,7 +1095,8 @@ public class TaskManager extends Application {
 	 */
 	public ArrayList<ToDo> getTableListView(){
 		ArrayList<ToDo> arrList = new ArrayList<ToDo>();
-		getToDoSortArray().forEach(item->arrList.add(item));
+//		getToDoSortArray().forEach(item->arrList.add(item));
+		getToDoArray().forEach(item->arrList.add(item));
 //		setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
 //		setToDoElement(0);
 		
@@ -1107,12 +1112,8 @@ public class TaskManager extends Application {
 	public void getListView(BorderPane root){
 		objItem = FXCollections.observableList(getListTitle());
 		list.setItems(objItem);
-		//======= for copy and relocate each arraylist ==============//
-		setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
 		setToDoElement(0);
-		//==========================================================//
-		
-    	root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
+    	root.setCenter(getCenterPane(getToDoArray().get(getToDoElement())));
 
 	}
 	
@@ -1152,12 +1153,17 @@ public class TaskManager extends Application {
     	vbRight.getChildren().addAll(label,titleBtn, subjectBtn,dueBtn,priBtn,comBtn,reverseBtn);
 
     	getListView(root);
-    	titleBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getTitle().toLowerCase().compareTo(td2.getTitle().toLowerCase()));getListView(root);});
-    	subjectBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getSubject().toLowerCase().compareTo(td2.getSubject().toLowerCase()));getListView(root);});
-    	dueBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getDueDate().compareTo(td2.getDueDate()));getListView(root);});
-    	priBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getPriority() - td2.getPriority());getListView(root);});
-    	comBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) ->Boolean.valueOf(td1.isCompleted()).compareTo(Boolean.valueOf(td2.isCompleted())));getListView(root);});
-    	reverseBtn.setOnAction(e-> {FXCollections.reverse((ObservableList<String>) objItem);setToDoElement(getToDoArray().size()-1);root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));});
+    	titleBtn.setOnAction(e-> {getToDoArray().sort((td1,td2) -> td1.getTitle().toLowerCase().compareTo(td2.getTitle().toLowerCase()));getListView(root);});
+
+    	subjectBtn.setOnAction(e-> { getToDoArray().sort((td1, td2) -> td1.getSubject().toLowerCase().compareTo(td2.getSubject().toLowerCase()));getListView(root);});
+
+    	dueBtn.setOnAction(e-> { getToDoArray().sort((td1,td2) -> td1.getDueDate().compareTo(td2.getDueDate()));getListView(root);});
+
+    	priBtn.setOnAction(e-> { getToDoArray().sort((td1, td2) -> td1.getPriority() - td2.getPriority());getListView(root);});
+
+    	comBtn.setOnAction(e-> { getToDoArray().sort((td1,td2) -> Boolean.valueOf(td1.isCompleted()).compareTo(Boolean.valueOf(td2.isCompleted())));getListView(root);});
+
+    	reverseBtn.setOnAction(e-> { FXCollections.reverse((ObservableList<String>) objItem);setToDoElement(getToDoArray().size()-1);root.setCenter(getCenterPane(getToDoArray().get(getToDoElement())));});
 		
     	return vbRight;
 	}
@@ -1184,13 +1190,29 @@ public class TaskManager extends Application {
         Label label = new Label("TableView Sorting");
         label.setStyle("-fx-font: 20px Tahoma; -fx-text-fill: Blue");
 
-    	Button titleBtn = new Button("SortByTitle");
-    	Button subjectBtn = new Button("SortBySubject");
-    	Button dueBtn = new Button("SortByDueDate");
-    	Button priBtn = new Button("SortByPriority");
-    	Button comBtn = new Button("SortByCompleted");
-    	Button reverseBtn = new Button("SortReverse");
+    	ToggleButton titleBtn = new ToggleButton("SortByTitle");
+    	ToggleButton subjectBtn = new ToggleButton("SortBySubject");
+    	ToggleButton dueBtn = new ToggleButton("SortByDueDate");
+    	ToggleButton priBtn = new ToggleButton("SortByPriority");
+    	ToggleButton comBtn = new ToggleButton("SortByCompleted");
+    	ToggleButton reverseBtn = new ToggleButton("SortReverse");
 
+    	ToggleGroup toggleGroup = new ToggleGroup();
+
+    	titleBtn.setToggleGroup(toggleGroup);
+    	titleBtn.setUserData(1);
+    	subjectBtn.setToggleGroup(toggleGroup);
+    	subjectBtn.setUserData(2);
+    	dueBtn.setToggleGroup(toggleGroup);
+    	dueBtn.setUserData(3);
+    	priBtn.setToggleGroup(toggleGroup);   	
+    	priBtn.setUserData(4);
+    	comBtn.setToggleGroup(toggleGroup);
+    	comBtn.setUserData(5);
+    	reverseBtn.setToggleGroup(toggleGroup);   	
+    	reverseBtn.setUserData(6);
+    	
+    	
     	titleBtn.setMaxSize(120, 100);
     	subjectBtn.setMaxSize(120, 100);
     	dueBtn.setMaxSize(120, 100);
@@ -1200,13 +1222,37 @@ public class TaskManager extends Application {
     	
     	vbRight.getChildren().addAll(label,titleBtn, subjectBtn,dueBtn,priBtn,comBtn,reverseBtn);
 
-    	titleBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getTitle().toLowerCase().compareTo(td2.getTitle().toLowerCase()));getSortByItem(root);});
-    	subjectBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getSubject().toLowerCase().compareTo(td2.getSubject().toLowerCase()));getSortByItem(root);});
-    	dueBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getDueDate().compareTo(td2.getDueDate()));getSortByItem(root);});
-    	priBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getPriority() - td2.getPriority());getSortByItem(root);});
-    	comBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) ->Boolean.valueOf(td1.isCompleted()).compareTo(Boolean.valueOf(td2.isCompleted())));getSortByItem(root);});
-    	reverseBtn.setOnAction(e-> {FXCollections.reverse((ObservableList<ToDo>) data);	table.setItems(data);toDoSortArray.clear();	data.forEach(item->toDoSortArray.add(item));reloadCenter(root);});
+    	toggleGroup.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, 
+    			Toggle toggle, Toggle new_toggle) -> {
+    				getSortByItem(Integer.parseInt(ov.getValue().getUserData().toString()),root);
+    	});
     	
+  
+//    	<T extends Comparable<? super T>> void sort(List<T> list) 
+//    	Sorts Comparable objects using their natural ordering
+//    	<T> void sort(List<T> list, Comparator<? super T> c) 
+//    	Sorts whatever using a compatible Comparator
+//    	
+    	
+
+    	
+//    	toggleGroup.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, 
+//    			Toggle toggle, Toggle new_toggle) -> {
+//    				System.out.println("===>"+toggleGroup.getSelectedToggle());
+//    				System.out.println(ov.getValue().toggleGroupProperty().getName());
+//    				System.out.println(ov.getValue().getUserData());
+//    				getSortByItem(Integer.parseInt(ov.getValue().getUserData().toString()),root);
+//    				data = FXCollections.observableArrayList(getTableListView());
+//    				table.setItems(data);
+//
+//    				//======= for copy and relocate each arraylist ==============//
+//    				setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
+//    				setToDoElement(0);
+//    				//==========================================================//
+//    				root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
+//			
+//    	});
+
     	return vbRight;
 	}
 	
@@ -1214,17 +1260,17 @@ public class TaskManager extends Application {
 	 * This method provides getting ArrayList of ToDo 
 	 * @return ArrayList ArrayList of ToDo Object
 	 */
-	public ArrayList<ToDo> getToDoSortArray() {
-		return toDoSortArray;
-	}
+//	public ArrayList<ToDo> getToDoSortArray() {
+//		return toDoSortArray;
+//	}
 
 	/**
 	 * This method is set-up ArrayList of ToDo
 	 * @param toDoSortArray ArrayList of ToDo Object
 	 */
-	public void setToDoSortArray(ArrayList<ToDo> toDoSortArray) {
-		this.toDoSortArray = toDoSortArray;
-	}
+//	public void setToDoSortArray(ArrayList<ToDo> toDoSortArray) {
+//		this.toDoSortArray = toDoSortArray;
+//	}
 	
 	/**
 	 * This is Bonus #3 
@@ -1274,7 +1320,7 @@ public class TaskManager extends Application {
                     ToDo clickedRow = row.getItem();
 //        			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
         			setToDoElement(row.getIndex());
-        			root.setCenter(getCenterPane(getToDoSortArray().get(row.getIndex())));
+        			root.setCenter(getCenterPane(getToDoArray().get(row.getIndex())));
                }
             });
             return row ;
@@ -1295,7 +1341,7 @@ public class TaskManager extends Application {
 //			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
 			setToDoElement(list.getSelectionModel().getSelectedIndex());
 	    	
-	    	root.setCenter(getCenterPane(getToDoSortArray().get(list.getSelectionModel().getSelectedIndex())));
+	    	root.setCenter(getCenterPane(getToDoArray().get(list.getSelectionModel().getSelectedIndex())));
 	    	
 	    });
 	    	
@@ -1309,27 +1355,46 @@ public class TaskManager extends Application {
 	 * @param sortItem sortbyItem code (1: title, 2: subject, 3: duedate, 4: priority, 5 completed, 6 reverse)
 	 * @param root BorderPane. This will be reloading current scene for reflecting new sorting data
 	 */
-	public void getSortByItem(BorderPane root){
+	public void getSortByItem(int sortItem, BorderPane root){
 
+		switch (sortItem) {
+			case 1:
+				getToDoArray().sort((ToDo td1, ToDo td2) -> 
+				td1.getTitle().toLowerCase().compareTo(td2.getTitle().toLowerCase()));
+				break;
+			case 2:
+	    		getToDoArray().sort((ToDo td1, ToDo td2) -> 
+	    		td1.getSubject().toLowerCase().compareTo(td2.getSubject().toLowerCase()));
+				break;
+			case 3:
+	    		getToDoArray().sort((ToDo td1, ToDo td2) -> 
+	    		td1.getDueDate().compareTo(td2.getDueDate()));
+				break;
+			case 4:
+	    		getToDoArray().sort((ToDo td1, ToDo td2) -> 
+	    		td1.getPriority() - td2.getPriority());
+				break;
+			case 5:
+	    		getToDoArray().sort((ToDo td1, ToDo td2) ->
+	    		Boolean.valueOf(td1.isCompleted()).compareTo(Boolean.valueOf(td2.isCompleted())));
+				break;
+			case 6:
+
+	    		FXCollections.reverse((ObservableList<ToDo>) data);
+	    		table.setItems(data);
+	    		toDoArray.clear();
+	    		data.forEach(item->toDoArray.add(item));
+				break;
+		}
+
+		//======= for copy and relocate each arraylist ==============//
 		data = FXCollections.observableArrayList(getTableListView());
 		table.setItems(data);
-
-		reloadCenter(root);
-	}
-	
-	/**
-	 * This method works for reloading when event happens
-	 * @param root BorderPane name
-	 */
-	public void reloadCenter(BorderPane root) {
-		
-		//======= for copy and relocate each arraylist ==============//
-		setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
 		setToDoElement(0);
 		//==========================================================//
-		root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-		
+		root.setCenter(getCenterPane(getToDoArray().get(getToDoElement())));
 
+		
 	}
 	
 	

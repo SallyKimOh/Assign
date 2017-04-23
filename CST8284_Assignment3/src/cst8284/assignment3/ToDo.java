@@ -1,25 +1,9 @@
-package cst8284.assignment1;
+package cst8284.assignment3;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-/**
- * This class manages ToDo object.
- * It has a constractor, setter and getter
- * @fileName ToDo.java
- * @author Saeil Kim 040845408
- * @course CST8284
- * @section 300
- * @assignment Assignment3
- * @version 3.0
- * @date 2017.04.17
- * @professor David Houtman
- * @purpose getters and setters
- * @Create_User David Houtman
- * @Create_date 2017. 03.
- * @Modify_User Saeil Kim
- * @Modify_date 2017. 04. 17.
- * @see java.util.Date
- */
 
 public class ToDo extends Task implements Serializable  {
 	private int priority;

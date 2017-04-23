@@ -73,8 +73,10 @@ public class WordDump extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 
-//		File f = new File("bin/ShortWordList.txt");
-		File f = new File("bin/LongWordList.txt");
+		setFileName("bin/ShortWordList.txt");
+//		setFileName("bin/LongWordList.txt");
+
+		File f = new File(getFileName());
 //		System.out.println("path:"+f.getAbsolutePath());
 		
 		Text text = new Text(getFileContents(f));
@@ -86,9 +88,9 @@ public class WordDump extends Application {
     	ScrollPane sp = new ScrollPane();
 		
 		
-		Label lb = new Label();
-		lb.setAlignment(Pos.CENTER);
-		lb.setText(fileInfo.getInfoString());
+//		Label lb = new Label();
+//		lb.setAlignment(Pos.CENTER);
+//		lb.setText(fileInfo.getInfoString());
 		
 		Text text1 = new Text(fileInfo.getInfoString());
 		
@@ -107,55 +109,6 @@ public class WordDump extends Application {
         primaryStage.show();
 		
 	}
-/*	
-	   public static HBox hbox()
-	    {
-	        Button btn = new Button();
-	        btn.setText("Button1");
-	        Button btn2 = new Button();
-	        btn2.setText("Button2");
-	        Button btn3 = new Button();
-	        btn3.setText("Button3");
-	        btn.setPrefSize(100, 20);
-	        btn2.setPrefSize(100,20);
-	        btn3.setPrefSize(100,20);
-	        
-	        HBox hbox = new HBox();
-	        hbox.getStyleClass().add("hbox");
-	        hbox.getChildren().addAll(btn, btn2, btn3);
-	  
-	        return hbox;
-	    }
-	   
-	    public static VBox vbox()
-	    {
-	    	
-	    	
-	        Label lbl = new Label("Label1");
-	        Label lbl2 = new Label("Label2");
-	        VBox vbox = new VBox();
-	        vbox.getStyleClass().addAll("vbox");
-	        vbox.getChildren().addAll(lbl, lbl2);
-	        return vbox;
-	    }
-	    
-	    public static PieChart pc()
-	    {
-	        ObservableList<PieChart.Data> pieData = 
-	                FXCollections.observableArrayList(
-	                new PieChart.Data("Rent", 500),
-	                        new PieChart.Data("Electric",125), 
-	                        new PieChart.Data("Groceries", 235), 
-	                        new PieChart.Data("Entertainment", 200),
-	                        new PieChart.Data("Cell Phone", 80));
-	        
-	        PieChart budget = new PieChart(pieData);
-	        budget.setTitle("Monthly Expenses");
-	        return budget;
-	    }
-	
-	
-*/	
 	
 	
 	public static void main(String[] args) {

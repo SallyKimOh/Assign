@@ -4,6 +4,7 @@ import java.io.File;
 public class FileInfo {
 	
 	public String infoStr;
+	public StringBuilder infoStr1;
 	
 	public FileInfo(File f){
 	   if (f.exists() && f.isFile()){
@@ -20,6 +21,23 @@ public class FileInfo {
 
 	   System.out.println(infoStr);
 	}
+
+	public FileInfo(File f,int i){
+		   if (f.exists() && f.isFile()){
+			  infoStr1.append("File Name: " + f.getName() + "\n"+
+			  "File Path: " + f.getAbsolutePath() + "\n"+
+			  "Length " + f.length() + " bytes" + "\n"+
+			  "Total Number of Words: " + WordDump.getWordCtr() + "\n"+
+			  "File Read Status: " + f.canRead() + "\n"+
+			  "File Write Status: " + f.canWrite() + "\n"+
+			  "Is File Hidden?: " + f.isHidden() + "\n");
+		   }
+		   else
+			  infoStr1.append(f.getName() + " does not exist or is not a file");
+
+		   System.out.println(infoStr);
+		}
+	
 	
 	public String getInfoString(){
 		return infoStr;

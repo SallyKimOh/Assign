@@ -1,6 +1,4 @@
-package cst8284.assignment1;
-
-import java.util.Date;
+package cst8284.assignment2;
 /**
  * This class manages ToDo object that is adding ToDo objects and removing ToDo objects.
  * Also Task displays sequential ToDo List and can change order of ToDo
@@ -19,6 +17,8 @@ import java.util.Date;
  * @Modify_date 2017. 04. 17.
  * @see java.util.Date
  */
+
+import java.util.Date;
 
 public abstract class Task {
 	private Date dateCreated;

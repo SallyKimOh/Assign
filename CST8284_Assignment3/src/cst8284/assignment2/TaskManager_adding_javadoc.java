@@ -1,73 +1,6 @@
-package cst8284.assignment1;
-import java.io.File;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Optional;
-
-import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
-import javafx.animation.PathTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.ScaleTransition;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.CubicCurveTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-
+package cst8284.assignment2;
 /**
- * This class manages ToDo object that is adding ToDo objects and removing ToDo objects
+ * This class manages ToDo object that is adding ToDo objects and removing ToDo objects.
  * Also Task displays sequential ToDo List and can change order of ToDo
  * @fileName TaskManger.java
  * @author Saeil Kim 040845408
@@ -108,8 +41,70 @@ import javafx.util.Duration;
  */
 
 
+import java.io.File;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Optional;
 
-public class TaskManager extends Application {
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.CubicCurveTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+public class TaskManager_adding_javadoc extends Application {
 
 	/**
 	 * The toDoArray is ArrayList of ToDo
@@ -128,7 +123,7 @@ public class TaskManager extends Application {
 	 */
 	private FileChooser fc = new FileChooser();
 	/**
-	 * The TextField for new adding elements of new element
+	 * The tempTitle and tempDueDate are a TextField for new adding elements of Title and DueDate
 	 */
 	private TextField tempTitle,tempDueDate;
 	/**
@@ -140,11 +135,11 @@ public class TaskManager extends Application {
 	 */
 	private RadioButton tempPriority;
 	/**
-	 * The priority is a number that is a current priority value
+	 * The priority is a number that is a current priority value.
 	 */
 	private int priority;
 	/**
-	 * The tempDate is a DueDate. It uses DatePicker
+	 * The tempDate is a DueDate. It uses DatePicker.
 	 */
 	private DatePicker tempDate;
 	/**
@@ -152,11 +147,11 @@ public class TaskManager extends Application {
 	 */
 	private ToggleGroup tempGroup;
 	/**
-	 * The list is a ListView of String property that will display ObservableList
+	 * The list is a ListView<String> property that will display ObservableList.
 	 */
 	private ListView<String> list = new ListView<String>();
 	/**
-	 * The objItem is a ObservableList of String that will be make new Array of String
+	 * The objItem is a ObservableList<String> that will be make new Array of String
 	 */
 	private ObservableList<String> objItem;
 	/**
@@ -164,7 +159,7 @@ public class TaskManager extends Application {
 	 */
 	private ArrayList<ToDo> toDoSortArray = new ArrayList<ToDo>();
 	/**
-	 * The table is a property of TableView of ToDo that will be display ObservableList of ToDo
+	 * The table is a property of TableView<ToDo> that will be display ObservableList<ToDo>
 	 */
     private TableView<ToDo> table = new TableView<ToDo>();
     /**
@@ -188,6 +183,7 @@ public class TaskManager extends Application {
 
 	/**
 	 * Creating a backup file from original the original file and exit
+	 * @param nothing
 	 */
 	public void getBackUpFile1(){
         System.out.println("Stage is closing");
@@ -203,7 +199,7 @@ public class TaskManager extends Application {
 	}
 
 	/**
-	 * Before exit checking that original files change or not without saving
+	 * Before exit checking that original files change or not without saving.
 	 * If that is not save, this method provides saving that objects
 	 */
 	public void getBackUpFile(){
@@ -476,7 +472,6 @@ public class TaskManager extends Application {
     	}          	
 
 		toDoSortArray = new ArrayList<ToDo>();
-		toDoSortArray.clear();
 		getToDoArray().forEach(item->toDoSortArray.add(item));
 
 		if ((getToDoElement()-1 == getToDoArray().size()-1) && (getToDoElement() > 0)) {
@@ -485,6 +480,10 @@ public class TaskManager extends Application {
 		} else if (getToDoArray().size() < 1) {
 			Platform.exit();
 		} 
+
+//		if (getToDoArray().size() < 1) Platform.exit();
+//		setToDoElement(0);
+		
 		
 		getPrimaryStage().setScene(getToDoScene(getToDoArray().get(getToDoElement())));
 		
@@ -528,7 +527,7 @@ public class TaskManager extends Application {
 				tdTemp.setTitle(getTempTitle().getText());
 				tdTemp.setSubject(getTempSubject().getText());
 				try {
-					if (getTempGroup().getSelectedToggle().isSelected())
+					if (getTempGroup().hasProperties()) 
 						tdTemp.setPriority(Integer.parseInt(getTempGroup().getSelectedToggle().getUserData().toString()));
 				} catch (Exception e) {
 					tdTemp.setPriority(1);	//setting default 1
@@ -541,7 +540,9 @@ public class TaskManager extends Application {
 				tdTemp.setDueDate(date);
 				
 				new FileUtils().setToDoArrayListToFile(fc.getInitialFileName(),toDoArray);
-				setToDoSortArray((ArrayList<ToDo>) getToDoArray().clone());
+				getToDoArray().get(getToDoElement()).setRemove(true);
+				
+				getToDoSortArray().add(getToDoArray().get(getToDoElement()));
 
 				System.out.println("current:"+getToDoElement());
 				if (btnTypeYN==null)		
@@ -882,7 +883,7 @@ public class TaskManager extends Application {
 	 * Some ToDo Objects include empty data, so this method creates new ToDo ArrayList for existing data.
 	 * This method will show to display not empty data into the screen.
 	 * @param tdRawAr ToDo ArrayList of original
-	 * @return ArrayList This arrayList has not empty data from original ToDo arrayList
+	 * @return ArrayList<ToDo> This arrayList has not empty data from original ToDo arrayList
 	 */
 	private ArrayList<ToDo> getToDoArrayWithoutEmpties(ArrayList<ToDo> tdRawAr) {
 		
@@ -920,15 +921,15 @@ public class TaskManager extends Application {
 
 	/**
 	 * This method provides getting toDoArray
-	 * @return ArrayList ArrayList of ToDo
+	 * @return ArrayList<ToDo>
 	 */
 	public ArrayList<ToDo> getToDoArray() {
 		return toDoArray;
 	}
 
 	/**
-	 * This method is set-up ArrayList of ToDo
-	 * @param toDoArray ArrayList of ToDo
+	 * This method is set-up ArrayList<ToDo>
+	 * @param toDoArray
 	 */
 	public void setToDoArray(ArrayList<ToDo> toDoArray) {
 		this.toDoArray = toDoArray;
@@ -936,7 +937,7 @@ public class TaskManager extends Application {
 
 	/**
 	 * This method is set-up CurrentElementNumber
-	 * @param currentElementNumber  number of current element
+	 * @param currentElementNumber
 	 */
 	public static void setToDoElement(int currentElementNumber){
 		currentToDoElement = currentElementNumber;
@@ -960,7 +961,7 @@ public class TaskManager extends Application {
 
 	/**
 	 * This method is set-up newTitle
-	 * @param tempTitle New title from adding scene
+	 * @param tempTitle
 	 */
 	public void setTempTitle(TextField tempTitle) {
 		this.tempTitle = tempTitle;
@@ -976,7 +977,7 @@ public class TaskManager extends Application {
 
 	/**
 	 * This method is set-up new DueDate
-	 * @param tempDueDate New due date from new Scene.
+	 * @param tempDueDate
 	 */
 	public void setTempDueDate(TextField tempDueDate) {
 		this.tempDueDate = tempDueDate;
@@ -992,7 +993,7 @@ public class TaskManager extends Application {
 
 	/**
 	 * This method is set-up new Subject
-	 * @param tempSubject New subject from adding new scene
+	 * @param tempSubject
 	 */
 	public void setTempSubject(TextArea tempSubject) {
 		this.tempSubject = tempSubject;
@@ -1008,7 +1009,7 @@ public class TaskManager extends Application {
 
 	/**
 	 * This method is set-up new priority
-	 * @param tempPriority priority from adding new scene
+	 * @param tempPriority
 	 */
 	public void setTempPriority(RadioButton tempPriority) {
 		this.tempPriority = tempPriority;
@@ -1024,7 +1025,7 @@ public class TaskManager extends Application {
 
 	/**
 	 * This method is set-up new DueDate using DatePicker
-	 * @param tempDate new Date from adding new scene
+	 * @param tempDate
 	 */
 	public void setTempDate(DatePicker tempDate) {
 		this.tempDate = tempDate;
@@ -1040,7 +1041,7 @@ public class TaskManager extends Application {
 
 	/**
 	 * This method is set-up priority
-	 * @param priority priority from element of ToDo
+	 * @param priority
 	 */
 	public void setPriority(int priority) {
 		this.priority = priority;
@@ -1056,7 +1057,7 @@ public class TaskManager extends Application {
 
 	/**
 	 * This method is set-up new Group for RadioButton of priority
-	 * @param tempGroup new Group of Radio button for priority from adding new scene
+	 * @param tempGroup
 	 */
 	public void setTempGroup(ToggleGroup tempGroup) {
 		this.tempGroup = tempGroup;
@@ -1064,7 +1065,7 @@ public class TaskManager extends Application {
 
 	/**
 	 * Main Method. It will launch of JavaFx
-	 * @param args  Default method
+	 * @param args
 	 */
 	public static void main(String[] args) {
 		launch(args);
@@ -1072,9 +1073,9 @@ public class TaskManager extends Application {
 
 
 	/**
-	 * This method creates new ArrayList of String for title of ToDo ArrayList.
+	 * This method creates new ArrayList<String> for title of ToDo ArrayList.
 	 * It creates new ArrayList for sorting. 
-	 * @return ArrayList ArrayList of String
+	 * @return ArrayList<String>
 	 */
 	public ArrayList<String> getListTitle(){
 		ArrayList<String> arrTitle = new ArrayList<String>();
@@ -1085,9 +1086,9 @@ public class TaskManager extends Application {
 	}
 
 	/**
-	 * This method creates new ArrayList of ToDo Object for tableListView.
+	 * This method creates new ArrayList<ToD> for tableListView.
 	 * This method will be used for sorting
-	 * @return ArrayList ArrayList of ToDo Object 
+	 * @return ArrayList<ToDo> 
 	 */
 	public ArrayList<ToDo> getTableListView(){
 		ArrayList<ToDo> arrList = new ArrayList<ToDo>();
@@ -1102,16 +1103,12 @@ public class TaskManager extends Application {
 	
 	/**
 	 * This method will be display ListView from TitleList of ToDo ArrayList
-	 * @param root BorderPane from parents scene
 	 */
 	public void getListView(BorderPane root){
 		objItem = FXCollections.observableList(getListTitle());
+//		setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
+
 		list.setItems(objItem);
-		//======= for copy and relocate each arraylist ==============//
-		setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
-		setToDoElement(0);
-		//==========================================================//
-		
     	root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
 
 	}
@@ -1122,8 +1119,7 @@ public class TaskManager extends Application {
 	 * i.e) SortByTitle, SortBySubject, SortByDueDate, SortByPriority, SortByCompleted, Sort Reverse
 	 * When the buttons are clicked, left pane will be changed by sorting buttons.
 	 * This method is used ListView
-	 * @param root BorderPane from parents scene
-	 * @return VBox VBox for right pane
+	 * @return VBox
 	 */
 	public VBox getRightPane(BorderPane root){
 		VBox vbRight = new VBox(10);
@@ -1152,25 +1148,90 @@ public class TaskManager extends Application {
     	vbRight.getChildren().addAll(label,titleBtn, subjectBtn,dueBtn,priBtn,comBtn,reverseBtn);
 
     	getListView(root);
-    	titleBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getTitle().toLowerCase().compareTo(td2.getTitle().toLowerCase()));getListView(root);});
-    	subjectBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getSubject().toLowerCase().compareTo(td2.getSubject().toLowerCase()));getListView(root);});
-    	dueBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getDueDate().compareTo(td2.getDueDate()));getListView(root);});
-    	priBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getPriority() - td2.getPriority());getListView(root);});
-    	comBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) ->Boolean.valueOf(td1.isCompleted()).compareTo(Boolean.valueOf(td2.isCompleted())));getListView(root);});
-    	reverseBtn.setOnAction(e-> {FXCollections.reverse((ObservableList<String>) objItem);setToDoElement(getToDoArray().size()-1);root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));});
+    	titleBtn.setOnAction(e-> {
+  
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+    		td1.getTitle().toLowerCase().compareTo(td2.getTitle().toLowerCase())
+    		);
+    		//======= for copy and relocate each arraylist ==============//
+			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
+			setToDoElement(0);
+			//==========================================================//
+        	getListView(root);
+    		
+    	});
+
+    	subjectBtn.setOnAction(e-> {
+
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+    		td1.getSubject().toLowerCase().compareTo(td2.getSubject().toLowerCase())
+    		);
+    		//======= for copy and relocate each arraylist ==============//
+			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
+			setToDoElement(0);
+			//==========================================================//
+        	getListView(root);
+    		
+    	});
+
+    	dueBtn.setOnAction(e-> {
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+    		td1.getDueDate().compareTo(td2.getDueDate())
+    		);
+    		
+    		//======= for copy and relocate each arraylist ==============//
+			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
+			setToDoElement(0);
+			//==========================================================//
+        	getListView(root);
+    	});
+
+    	priBtn.setOnAction(e-> {
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+    		td1.getPriority() - td2.getPriority()
+    		);
+    		
+    		//======= for copy and relocate each arraylist ==============//
+			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
+			setToDoElement(0);
+			//==========================================================//
+        	getListView(root);
+    		
+    	});
+
+    	comBtn.setOnAction(e-> {
+
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) ->
+    		Boolean.valueOf(td1.isCompleted()).compareTo(Boolean.valueOf(td2.isCompleted()))
+    		);
+    		//======= for copy and relocate each arraylist ==============//
+			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
+			setToDoElement(0);
+			//==========================================================//
+    		
+        	getListView(root);
+    		
+    	});
+
+    	reverseBtn.setOnAction(e-> {
+    		FXCollections.reverse((ObservableList<String>) objItem);
+    		//======= for copy and relocate each arraylist ==============//
+			setToDoElement(getToDoArray().size()-1);
+			//==========================================================//
+	    	root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
+    	});
+    	
 		
     	return vbRight;
 	}
 
 	/**
-	 * This is Bouns #2
 	 * This method display right pane.
 	 * This has several buttons for sorting.
 	 * i.e) SortByTitle, SortBySubject, SortByDueDate, SortByPriority, SortByCompleted, Sort Reverse
 	 * When the buttons are clicked, left pane will be changed by sorting buttons.
 	 * This method is used TableView
-	 * @param root BorderPane from parents scene
-	 * @return VBox VBox for rightPane of Table
+	 * @return VBox
 	 */
 	public VBox getRightTablePane(BorderPane root){
 		VBox vbRight = new VBox(10);
@@ -1183,7 +1244,7 @@ public class TaskManager extends Application {
 
         Label label = new Label("TableView Sorting");
         label.setStyle("-fx-font: 20px Tahoma; -fx-text-fill: Blue");
-
+		
     	Button titleBtn = new Button("SortByTitle");
     	Button subjectBtn = new Button("SortBySubject");
     	Button dueBtn = new Button("SortByDueDate");
@@ -1200,19 +1261,100 @@ public class TaskManager extends Application {
     	
     	vbRight.getChildren().addAll(label,titleBtn, subjectBtn,dueBtn,priBtn,comBtn,reverseBtn);
 
-    	titleBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getTitle().toLowerCase().compareTo(td2.getTitle().toLowerCase()));getSortByItem(root);});
-    	subjectBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getSubject().toLowerCase().compareTo(td2.getSubject().toLowerCase()));getSortByItem(root);});
-    	dueBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getDueDate().compareTo(td2.getDueDate()));getSortByItem(root);});
-    	priBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) -> td1.getPriority() - td2.getPriority());getSortByItem(root);});
-    	comBtn.setOnAction(e-> {getToDoSortArray().sort((td1, td2) ->Boolean.valueOf(td1.isCompleted()).compareTo(Boolean.valueOf(td2.isCompleted())));getSortByItem(root);});
-    	reverseBtn.setOnAction(e-> {FXCollections.reverse((ObservableList<ToDo>) data);	table.setItems(data);toDoSortArray.clear();	data.forEach(item->toDoSortArray.add(item));reloadCenter(root);});
     	
+    	titleBtn.setOnAction(e-> {
+  
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+    		td1.getTitle().toLowerCase().compareTo(td2.getTitle().toLowerCase())
+    		);
+ 
+    		data = FXCollections.observableArrayList(getTableListView());
+    		table.setItems(data);
+    		//======= for copy and relocate each arraylist ==============//
+			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
+			setToDoElement(0);
+			//==========================================================//
+    		root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
+    		
+    		
+    	});
+
+    	subjectBtn.setOnAction(e-> {
+
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+    		td1.getSubject().toLowerCase().compareTo(td2.getSubject().toLowerCase())
+    		);
+
+    		data = FXCollections.observableArrayList(getTableListView());  	
+    		table.setItems(data);
+    		//======= for copy and relocate each arraylist ==============//
+			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
+			setToDoElement(0);
+			//==========================================================//
+	    	root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
+    		
+    	});
+
+    	dueBtn.setOnAction(e-> {
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+    		td1.getDueDate().compareTo(td2.getDueDate())
+    		);
+    		
+    		data = FXCollections.observableArrayList(getTableListView());  	
+    		table.setItems(data);
+    		//======= for copy and relocate each arraylist ==============//
+			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
+			setToDoElement(0);
+			//==========================================================//
+	    	root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
+    
+    	});
+
+    	priBtn.setOnAction(e-> {
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) -> 
+    		td1.getPriority() - td2.getPriority()
+    		);
+    		
+    		data = FXCollections.observableArrayList(getTableListView());  	
+    		table.setItems(data);
+    		//======= for copy and relocate each arraylist ==============//
+			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
+			setToDoElement(0);
+			//==========================================================//
+	    	root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
+    	});
+
+    	comBtn.setOnAction(e-> {
+
+    		getToDoSortArray().sort((ToDo td1, ToDo td2) ->
+    		Boolean.valueOf(td1.isCompleted()).compareTo(Boolean.valueOf(td2.isCompleted()))
+    		);
+    		
+    		data = FXCollections.observableArrayList(getTableListView());  	
+    		table.setItems(data);
+    		//======= for copy and relocate each arraylist ==============//
+			setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
+			setToDoElement(0);
+			//==========================================================//
+	    	root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
+    	});
+
+    	reverseBtn.setOnAction(e-> {
+    		FXCollections.reverse((ObservableList<ToDo>) data);
+    		table.setItems(data);
+    		//======= for copy and relocate each arraylist ==============//
+			setToDoElement(getToDoArray().size()-1);
+			//==========================================================//
+	    	root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
+    	});
+    	
+		
     	return vbRight;
 	}
 	
 	/**
 	 * This method provides getting ArrayList of ToDo 
-	 * @return ArrayList ArrayList of ToDo Object
+	 * @return ArrayList<ToDo>
 	 */
 	public ArrayList<ToDo> getToDoSortArray() {
 		return toDoSortArray;
@@ -1220,18 +1362,17 @@ public class TaskManager extends Application {
 
 	/**
 	 * This method is set-up ArrayList of ToDo
-	 * @param toDoSortArray ArrayList of ToDo Object
+	 * @param toDoSortArray
 	 */
 	public void setToDoSortArray(ArrayList<ToDo> toDoSortArray) {
 		this.toDoSortArray = toDoSortArray;
 	}
 	
 	/**
-	 * This is Bonus #3 
 	 * This method displays left pane for Table View
-	 * This shows Titles and priorities of ArrayList of ToDo Object
+	 * This shows Titles and priorities of ArrayList<ToDo>
 	 * @param root BorderPane will add this VBox into the Scene
-	 * @return VBox VBox for leftPane of table view
+	 * @return VBox
 	 */
 	public VBox getLeftPane(BorderPane root) {
 
@@ -1284,7 +1425,6 @@ public class TaskManager extends Application {
 	}
 
 	/**
-	 * This is Bouns #1
 	 * This method displays CenterPane.
 	 * When ListView Clicked data, this will reflect center pane to relate on Clicked data
 	 * @param root BorderPane for changing new Scene by changing data.
@@ -1299,38 +1439,9 @@ public class TaskManager extends Application {
 	    	
 	    });
 	    	
-	}
-
-
-	/**
-	 * This method provides sorting by each item.
-	 * The titles will be sorted when the Item button clicked.
-	 * Therefore, their list will be different.
-	 * @param sortItem sortbyItem code (1: title, 2: subject, 3: duedate, 4: priority, 5 completed, 6 reverse)
-	 * @param root BorderPane. This will be reloading current scene for reflecting new sorting data
-	 */
-	public void getSortByItem(BorderPane root){
-
-		data = FXCollections.observableArrayList(getTableListView());
-		table.setItems(data);
-
-		reloadCenter(root);
-	}
-	
-	/**
-	 * This method works for reloading when event happens
-	 * @param root BorderPane name
-	 */
-	public void reloadCenter(BorderPane root) {
-		
-		//======= for copy and relocate each arraylist ==============//
-		setToDoArray((ArrayList<ToDo>) getToDoSortArray().clone());
-		setToDoElement(0);
-		//==========================================================//
-		root.setCenter(getCenterPane(getToDoSortArray().get(getToDoElement())));
-		
 
 	}
+
 	
 	
 }

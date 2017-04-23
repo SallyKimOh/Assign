@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -22,13 +21,13 @@ import javafx.stage.Stage;
 public class WordDump extends Application implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	//	private String wordFileName="D:\\LongWordList-UTF-7.txt";
-	private static String wordFileName="LongWordList-UTF-7.txt";
+	private static String wordFileName="D:\\LongWordList-UTF-7.txt";
+//	private static String wordFileName="LongWordList-UTF-7.txt";
 	@SuppressWarnings("unused")
 	private static final Stage primaryStage = null;
 	
 	
-	public String getFileName() {
+	public static String getFileName() {
 		return wordFileName;
 	}
 
@@ -44,7 +43,8 @@ public class WordDump extends Application implements Serializable {
 		String strList = "";
 		
 		try {
-			File f = new File(wordFileName);
+//			File f = new File(wordFileName);
+			File f = new File(getFileName());
 			
 			Scanner data = new Scanner(f);
 			
@@ -71,7 +71,8 @@ public class WordDump extends Application implements Serializable {
 		StringBuilder strList = new StringBuilder();
 		
 		try {
-			File f = new File(wordFileName);
+//			File f = new File(wordFileName);
+			File f = new File(getFileName());
 			Scanner data = new Scanner(f);
 			
 			if (f.exists()) {
@@ -91,7 +92,8 @@ public class WordDump extends Application implements Serializable {
 		ArrayList<String> strList = new ArrayList<String>();
 		
 		try {
-			File f = new File(wordFileName);
+//			File f = new File(wordFileName);
+			File f = new File(getFileName());
 			Scanner data = new Scanner(f);
 			
 			if (f.exists()) {
@@ -127,7 +129,7 @@ public class WordDump extends Application implements Serializable {
     	ScrollPane sp = new ScrollPane();
 		
 		
-    	VBox vbox = new VBox();
+    	VBox vbox = new VBox(10);
     	
     	Button seqBtn = new Button("Alphabetical Order");
     	Button descBtn = new Button("Reverse Order");
@@ -146,8 +148,8 @@ public class WordDump extends Application implements Serializable {
 		
     	sp.setContent(text);
 		sp.setPrefSize(200, 480);
-		sp.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
-		sp.setHbarPolicy(ScrollBarPolicy.NEVER);
+//		sp.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+//		sp.setHbarPolicy(ScrollBarPolicy.NEVER);
 //        pane.setLeft(sp);
     	pane.setLeft(list);	
 
